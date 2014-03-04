@@ -21,7 +21,7 @@ var appData = {
 // settings
 appData.settings.rootPath = "http://localhost/";
 appData.settings.servicePath =  appData.settings.rootPath + "services/";
-appData.settings.imagePath = appData.settings.rootPath + "common/img/";
+appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
 appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
 appData.settings.getUserService = "getUser.php";
 appData.settings.getUsersService = "getUsers.php";
@@ -46,6 +46,9 @@ appData.settings.getMyActivities = "getMyActivities.php";
 appData.settings.getFavouriteSportsService = "getFavouriteSports.php";
 appData.settings.addFavouriteSportsService = "addFavouriteSports.php";
 appData.settings.getUserFavouriteSportsService = "getUserFavouriteSports.php";
+appData.settings.imageUploadService = "uploadService.php";
+appData.settings.addPhotoToDatabase = "addPhotoToDatabase.php";
+
 
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;
@@ -123,7 +126,7 @@ $(document).on("ready", function () {
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
         appData.settings.rootPath = "http://172.30.39.167/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
-        appData.settings.imagePath = appData.settings.rootPath + "common/img/";
+        appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
 
         appData.settings.native = true;
@@ -550,7 +553,7 @@ appData.views.ActivityMediaViewer = Backbone.View.extend({
     },
 
     render: function() { 
-    	this.$el.html(this.template(this.model.attributes));
+    	this.$el.html(this.template(this.model.toJSON()));
       return this; 
     }
 });
@@ -653,6 +656,10 @@ appData.views.ActivityMediaView = Backbone.View.extend({
     initialize: function () {
       appData.events.getMediaSuccesEvent.bind("mediaLoadSuccesHandler", this.getMediaLoadSuccesHandler);
       appData.services.phpService.getMedia(this.model); 
+      appData.views.ActivityMediaView.model = this.model;
+
+      appData.views.ActivityMediaView.win = this.win;
+      Backbone.on('addPhotoToDatabaseHandler', this.addPhotoToDatabaseHandler);
     },
 
     events: {
@@ -692,46 +699,37 @@ appData.views.ActivityMediaView = Backbone.View.extend({
     capturePhotoEditHandler: function() {
       var page = this.$el;
 
-    // Retrieve image file location from specified source
-    navigator.camera.getPicture(this.uploadPhoto,
-    function(message) { alert('get picture failed'); },
-    { quality: 50, 
-    destinationType: navigator.camera.DestinationType.FILE_URI,
-    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
-    );
-
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(this.uploadPhoto,
+        function(message) { 
+        },{ quality: 50, targetWidth: 640, targetHeight: 480, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.CAMERA }
+      );
     },
 
     uploadPhoto: function(imageURI) {
-
       var options = new FileUploadOptions();
       options.fileKey="file";
-      options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1)+'.png';
-      options.mimeType="text/plain";
+      options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+      options.mimeType="image/jpeg";
 
       var params = new Object();
+      params.value1 =  options.fileName;
+      appData.views.ActivityMediaView.uploadedPhotoUrl = options.fileName;
+
       options.params = params;
+      options.chunkedMode = false;
 
-
-
-      var ft = new FileTransfer();
-      console.log(ft);
-
-      
-      ft.upload(imageURI, encodeURI(appData.settings.rootPath + "services/uploadService.php"), this.win, this.fail, options);
+      var ft = new FileTransfer();  
+      ft.upload(imageURI, appData.settings.servicePath + appData.settings.imageUploadService, appData.views.ActivityMediaView.win(), null, options);    
     },
 
     win: function(r) {
-        alert('succes');
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        console.log("Sent = " + r.bytesSent);
+      appData.services.phpService.addPhotoToDatabase(appData.views.ActivityMediaView.uploadedPhotoUrl, appData.views.ActivityMediaView.model.attributes.activity_id);
     },
 
-    fail: function(error) {
-        alert("An error has occurred: Code = " + error.code);
-        console.log("upload error source " + error.source);
-        console.log("upload error target " + error.target);
+    addPhotoToDatabaseHandler: function(){
+      // get images from database
+      appData.services.phpService.getMedia(appData.views.ActivityMediaView.model); 
     }
 });
 
@@ -1526,7 +1524,7 @@ appData.views.LoadingView = Backbone.View.extend({
         console.log(appData.collections);
 
         if(appData.collections.myFavouriteSports.length > 0){
-            appData.router.navigate('sportselector', true);
+            appData.router.navigate('dashboard', true);
         }else{
             appData.router.navigate('sportselector', true);
         }
@@ -2586,6 +2584,23 @@ appData.services.PhpServices = Backbone.Model.extend({
 				}
 			}
 		});
+  	},
+
+  	addPhotoToDatabase: function(imageName, activity_id){
+
+  		console.log(imageName);
+  		console.log(activity_id);
+
+  		 $.ajax({
+			url:appData.settings.servicePath + appData.settings.addPhotoToDatabase,
+			type:'POST',
+			dataType:'json',
+			data: "url="+imageName+"&user_id="+appData.models.userModel.attributes.user_id+"&type="+1+"&activity_id="+activity_id,
+			success:function(data){
+				console.log(data);
+        		Backbone.trigger('addPhotoToDatabaseHandler');
+			}
+		}); 
   	}
 });
 
@@ -2682,7 +2697,7 @@ appData.utils.templates = (function() {
 
         $.each(views, function(index, view) {
             if (appData.views[view]) {
-                deferreds.push($.get('dev/templates/' + view + '.html', function(data) {
+                deferreds.push($.get('public/templates/' + view + '.html', function(data) {
                     appData.views[view].prototype.template = _.template(data);
                 }, 'html'));
             } else {

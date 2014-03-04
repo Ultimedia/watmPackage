@@ -327,5 +327,22 @@ appData.services.PhpServices = Backbone.Model.extend({
 				}
 			}
 		});
+  	},
+
+  	addPhotoToDatabase: function(imageName, activity_id){
+
+  		console.log(imageName);
+  		console.log(activity_id);
+
+  		 $.ajax({
+			url:appData.settings.servicePath + appData.settings.addPhotoToDatabase,
+			type:'POST',
+			dataType:'json',
+			data: "url="+imageName+"&user_id="+appData.models.userModel.attributes.user_id+"&type="+1+"&activity_id="+activity_id,
+			success:function(data){
+				console.log(data);
+        		Backbone.trigger('addPhotoToDatabaseHandler');
+			}
+		}); 
   	}
 });

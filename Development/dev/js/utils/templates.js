@@ -6,7 +6,7 @@ appData.utils.templates = (function() {
 
         $.each(views, function(index, view) {
             if (appData.views[view]) {
-                deferreds.push($.get('dev/templates/' + view + '.html', function(data) {
+                deferreds.push($.get('public/templates/' + view + '.html', function(data) {
                     appData.views[view].prototype.template = _.template(data);
                 }, 'html'));
             } else {

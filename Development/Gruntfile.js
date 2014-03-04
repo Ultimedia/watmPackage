@@ -17,6 +17,7 @@ var vendorpaths = ["dev/vendor/**.js"];
 var htmlpaths = ["index.html"];
 
 
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -34,11 +35,27 @@ module.exports = function(grunt) {
       },
       vendor:{
         files: vendorpaths,
-        tasks: ['concat','uglify']
+        tasks: ['copy','uglify', 'concat']
       },
       html:{
         files: indexpath,
         tasks: ['concat', 'clean']
+      },
+      templates: {
+        files: templatepaths,
+        tasks: ['copy']
+      }
+    },
+
+    copy: {
+      main: {
+        files: [
+          // includes files within path
+          {expand: true, flatten: true, src: templatepaths, dest: '../WeAppToMove/www/public/templates'},
+        
+          {expand: true, flatten: true, src: vendorpaths, dest: '../WeAppToMove/www/public/js/vendor'}
+
+        ]
       }
     },
 
@@ -134,9 +151,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
 
-  grunt.registerTask('default', [,'concat','compass:development', 'clean', 'uglify']);
+  grunt.registerTask('default', [,'concat','compass:development', 'clean', 'uglify', 'copy']);
   grunt.registerTask('production', ['compass:production', 'clean', 'uglify', 'clean']);
 
 };

@@ -4,7 +4,7 @@
 	$activity_id = $_POST['activity_id'];
 
 	$dbc = getDBConnection();		
-	$sql = "SELECT * FROM watm_media WHERE activity_id =" . $activity_id;
+	$sql = "SELECT * FROM watm_media WHERE activity_id =" . $activity_id . " ORDER BY created DESC";
 
 	$result = $dbc->query($sql);
 	$medias = array();

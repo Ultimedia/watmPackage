@@ -1,5 +1,7 @@
 <?php
-	$new_image_name = "namethisimage.jpg";
-	$destination = $_SERVER['DOCUMENT_ROOT'] ."/".$new_image_name;
+	$new_image_name =  $_POST["value1"];
+	$destination = $_SERVER['DOCUMENT_ROOT'] ."/common/uploads/".$new_image_name;
 	move_uploaded_file($_FILES["file"]["tmp_name"], $destination);
 ?>
+
+

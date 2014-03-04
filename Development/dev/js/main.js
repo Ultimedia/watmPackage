@@ -19,7 +19,7 @@ var appData = {
 // settings
 appData.settings.rootPath = "http://localhost/";
 appData.settings.servicePath =  appData.settings.rootPath + "services/";
-appData.settings.imagePath = appData.settings.rootPath + "common/img/";
+appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
 appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
 appData.settings.getUserService = "getUser.php";
 appData.settings.getUsersService = "getUsers.php";
@@ -44,6 +44,9 @@ appData.settings.getMyActivities = "getMyActivities.php";
 appData.settings.getFavouriteSportsService = "getFavouriteSports.php";
 appData.settings.addFavouriteSportsService = "addFavouriteSports.php";
 appData.settings.getUserFavouriteSportsService = "getUserFavouriteSports.php";
+appData.settings.imageUploadService = "uploadService.php";
+appData.settings.addPhotoToDatabase = "addPhotoToDatabase.php";
+
 
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;
@@ -121,7 +124,7 @@ $(document).on("ready", function () {
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
         appData.settings.rootPath = "http://172.30.39.167/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
-        appData.settings.imagePath = appData.settings.rootPath + "common/img/";
+        appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
 
         appData.settings.native = true;
