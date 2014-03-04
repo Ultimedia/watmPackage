@@ -1,0 +1,58 @@
+2014-03-03 15:10:40.809 WeAppToMoved[86131:80b] Multi-tasking -> Device: YES, App: YES
+2014-03-03 15:10:40.815 WeAppToMoved[86131:80b] Unlimited access to network resources
+2014-03-03 15:10:40.823 WeAppToMoved[86131:80b] Fix applied for database locations?: YES
+2014-03-03 15:10:40.845 WeAppToMoved[86131:80b] [CDVTimer][splashscreen] 8.267045ms
+2014-03-03 15:10:40.845 WeAppToMoved[86131:80b] [CDVTimer][TotalPluginStartup] 8.776009ms
+2014-03-03 15:10:40.923 WeAppToMoved[86131:80b] Resetting plugins due to page load.
+2014-03-03 15:10:40.958 WeAppToMoved[86131:80b] Finished load of: file:///Users/maartenbressinck/Library/Application%20Support/iPhone%20Simulator/7.0.3-64/Applications/2B6B3C4E-9DA9-479E-B1E6-E1F4A40A1D22/WeAppToMoved.app/www/index.html
+2014-03-03 16:37:04.479 WeAppToMoved[4097:80b] Multi-tasking -> Device: YES, App: YES
+2014-03-03 16:37:04.501 WeAppToMoved[4097:80b] Unlimited access to network resources
+2014-03-03 16:37:04.504 WeAppToMoved[4097:80b] Fix applied for database locations?: YES
+2014-03-03 16:37:04.696 WeAppToMoved[4097:80b] [CDVTimer][splashscreen] 50.316989ms
+2014-03-03 16:37:04.696 WeAppToMoved[4097:80b] [CDVTimer][TotalPluginStartup] 50.712049ms
+2014-03-03 16:37:04.804 WeAppToMoved[4097:80b] Resetting plugins due to page load.
+2014-03-03 16:37:04.880 WeAppToMoved[4097:80b] Finished load of: file:///Users/maartenbressinck/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/3F0F83D3-816B-4862-933E-A2D321D34401/WeAppToMoved.app/www/index.html
+2014-03-03 16:37:04.947 WeAppToMoved[4097:80b] Received Event: deviceready
+2014-03-03 17:31:07.487 WeAppToMoved[16268:80b] Multi-tasking -> Device: YES, App: YES
+2014-03-03 17:31:07.494 WeAppToMoved[16268:80b] Unlimited access to network resources
+2014-03-03 17:31:07.518 WeAppToMoved[16268:80b] [CDVTimer][splashscreen] 7.568002ms
+2014-03-03 17:31:07.518 WeAppToMoved[16268:80b] [CDVTimer][TotalPluginStartup] 7.997990ms
+2014-03-03 17:31:07.596 WeAppToMoved[16268:80b] Resetting plugins due to page load.
+2014-03-03 17:31:07.993 WeAppToMoved[16268:80b] Finished load of: file:///Users/maartenbressinck/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/3F0F83D3-816B-4862-933E-A2D321D34401/WeAppToMoved.app/www/index.html
+2014-03-03 17:31:08.029 WeAppToMoved[16268:80b] ERROR: Plugin 'org.apache.cordova.facebook.Connect' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-03-03 17:31:08.030 WeAppToMoved[16268:80b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "org.apache.cordova.facebook.Connect1302440177",
+  "org.apache.cordova.facebook.Connect",
+  "init",
+  [
+    "595730207182331"
+  ]
+]
+2014-03-03 17:31:08.030 WeAppToMoved[16268:80b] ERROR: Plugin 'org.apache.cordova.facebook.Connect' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-03-03 17:31:08.030 WeAppToMoved[16268:80b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "org.apache.cordova.facebook.Connect1302440178",
+  "org.apache.cordova.facebook.Connect",
+  "getLoginStatus",
+  [
+
+  ]
+]
+2014-03-03 17:31:08.286 WeAppToMoved[16268:80b] Endpoint saved GIF89a
+2014-03-03 17:31:10.928 WeAppToMoved[16268:80b] ERROR: Plugin 'org.apache.cordova.facebook.Connect' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-03-03 17:31:10.929 WeAppToMoved[16268:80b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "org.apache.cordova.facebook.Connect1302440179",
+  "org.apache.cordova.facebook.Connect",
+  "login",
+  [
+    "email"
+  ]
+]
+2014-03-03 17:31:11.905 WeAppToMoved[16268:80b] ERROR: Plugin 'org.apache.cordova.facebook.Connect' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-03-03 17:31:11.905 WeAppToMoved[16268:80b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "org.apache.cordova.facebook.Connect1302440180",
+  "org.apache.cordova.facebook.Connect",
+  "login",
+  [
+    "email"
+  ]
+]
