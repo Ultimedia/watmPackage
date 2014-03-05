@@ -6,8 +6,10 @@ appData.views.DashboardView = Backbone.View.extend({
      
         appData.events.updateActivitiesEvent.bind("activitiesUpdateHandler", this.activitiesUpdateHandler);        
         appData.collections.activities.sort_by_attribute('sql_index');
+        Backbone.on('dashboardUpdatedHandler', this.generateAcitvitiesCollection);
 
-        this.generateAcitvitiesCollection();
+        // update activities collection
+        appData.services.phpService.getActivities(false, null);
     },
 
     events: {
@@ -21,6 +23,8 @@ appData.views.DashboardView = Backbone.View.extend({
     },
 
     generateAcitvitiesCollection: function(){
+        Backbone.off('dashboardUpdatedHandler', this.generateAcitvitiesCollection);
+
         appData.views.activityListView = [];
 
         var selectedCollection;

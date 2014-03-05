@@ -46,7 +46,8 @@ appData.settings.addFavouriteSportsService = "addFavouriteSports.php";
 appData.settings.getUserFavouriteSportsService = "getUserFavouriteSports.php";
 appData.settings.imageUploadService = "uploadService.php";
 appData.settings.addPhotoToDatabase = "addPhotoToDatabase.php";
-
+appData.settings.getMyAvatarService = "getMyAvatar.php";
+appData.settings.getUserChallengesService = "getUserChallengesService.php";
 
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;

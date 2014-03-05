@@ -559,3 +559,22 @@ display:table;
     position: absolute;
   }
 }
+
+#aanwezigContent{
+
+  div{
+    float: left;
+    margin-right: 5px;
+  }
+
+  .user_avatar{
+    float: left;
+    display: inline-block;
+
+
+    img{
+      min-width: 50px;
+      max-height: 50px;
+    }
+  }
+}

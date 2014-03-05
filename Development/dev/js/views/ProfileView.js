@@ -1,12 +1,16 @@
 appData.views.ProfileView = Backbone.View.extend({
 
     initialize: function () {
-
     },
     
     render: function() { 
     	this.$el.html(this.template());
         appData.settings.currentPageHTML = this.$el;
+
+        var view = new appData.views.ProfileAvatarView();
+        $('#profileContent', appData.settings.currentPageHTML).empty().append(view.render().$el);
+     
+
         return this; 
     },
 
@@ -17,7 +21,6 @@ appData.views.ProfileView = Backbone.View.extend({
     profileTabHandler: function(evt){ 
     	var page = this.$el;
         var currentActivityPage = '#atleetContent';
-
 
         $('#profileTabs .cl-btn', appData.settings.currentPageHTML).removeClass('active');
         $(evt.target, appData.settings.currentPageHTML).addClass('active');

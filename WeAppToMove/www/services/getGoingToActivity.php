@@ -2,13 +2,8 @@
 	require_once("core_functions.php");
 
 	$activity_id = $_POST['activity_id'];
-	$activity_user_id = $_POST['user_id'];
-	$going = $_POST['going'];
-
-
 	$dbc = getDBConnection();		
-	$sql = "SELECT * FROM watm_activity_users WHERE activity_id =" . $activity_id .
-			"INNER JOIN watm_users ON watm_activity_users.user_id";
+	$sql = "SELECT * FROM watm_activity_users LEFT JOIN watm_users ON watm_activity_users.user_id = watm_users.user_id WHERE activity_id =" . $activity_id;
 
 	$result = $dbc->query($sql);
 	$project_user_info = array();

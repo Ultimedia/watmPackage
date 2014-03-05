@@ -5,7 +5,10 @@ appData.views.ActivityInfoView = Backbone.View.extend({
         appData.models.activityModel = this.model;
         
         Backbone.on('activityUsersSuccesEvent', this.getActivityUsersSuccesHandler);
+        Backbone.on('goinToActivitySuccesEvent', this.setGoingToActivityCompleteHandler);
         appData.services.phpService.getActivityUsers(this.model); 
+
+        appData.views.ActivityInfoView.model = this.model;
     },
 
     render: function() { 
@@ -20,16 +23,18 @@ appData.views.ActivityInfoView = Backbone.View.extend({
             var selectedData = $(this).attr('id');
                 selectedData = selectedData.split('-');
                 selectedData = selectedData[1];
-
                 appData.services.phpService.setGoingToActivity(appData.models.activityModel.attributes.activity_id, selectedData);
         });
 
         return this; 
     },
 
-
+    setGoingToActivityCompleteHandler: function(){
+        appData.services.phpService.getActivityUsers(appData.views.ActivityInfoView.model); 
+    },
 
     getActivityUsersSuccesHandler: function(data){
+
         appData.models.activityModel.userData = new UsersCollection(data);
 
         // 1 set toggle switch for going
@@ -37,30 +42,28 @@ appData.views.ActivityInfoView = Backbone.View.extend({
             goingTo = goingTo[0];
 
         if(goingTo){
-            if(goingTo.length > 0){
-                $('#praktischContent .radio-list label').removeClass('checked');
-                $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).parent().addClass('checked');
-                $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).prop('checked', true);
-            }
+            $('#praktischContent .radio-list label').removeClass('checked');
+            $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).parent().addClass('checked');
+            $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).prop('checked', true);
         }
 
         // 2 show friends that are going
         $('#aanwezigContent').empty();
         appData.views.ActivityInfoView.userListView = [];
         appData.views.ActivityDetailView.model.attributes.users = data;
-        $(appData.views.ActivityDetailView.model.attributes.users).each(function(index,userModel) {
+        
+        var filteredUsers = _(appData.views.ActivityDetailView.model.attributes.users).where({"going": "1"});
+        $(filteredUsers).each(function(index,userModel) {
           appData.views.ActivityInfoView.userListView.push(new appData.views.ActivityUserView({
             model : userModel
         }));
 
         $('#aanwezigContent', appData.settings.currentModuleHTML).empty();
         _(appData.views.ActivityInfoView.userListView).each(function(dv) {
-
           $('#aanwezigContent', appData.settings.currentModuleHTML).append(dv.render().$el);
         });
       });
 
-        Backbone.off('activityUsersSuccesEvent', appData.views.ActivityInfoView.getActivityUsersSuccesHandler);
     }
 });
 

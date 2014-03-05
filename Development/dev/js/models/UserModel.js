@@ -6,8 +6,11 @@ User = Backbone.Model.extend({
 	    facebook_data: {},
 	    facebookUser: false,
 	    friends: [],
-	    avatar :'common/img/avatar.png',
-	    current_location: "50.827404, 3.254647"
+	    current_location: "50.827404, 3.254647",
+    	avatar_strength: 0,
+    	avatar_equipment: 0,
+    	avatar_stamina: 0,
+    	avatar: ""
     },
 	initialize: function(){
 		

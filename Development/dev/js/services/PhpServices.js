@@ -75,10 +75,15 @@ appData.services.PhpServices = Backbone.Model.extend({
 			success:function(data){
 				if(data.status === true){
 					if(data.password){
+
 						// store the userID
 						appData.models.userModel.set('name', data.name);
 						appData.models.userModel.set('avatar', data.avatar);
 						appData.models.userModel.set('user_id', data.value);
+						appData.models.userModel.attributes.avatar_strength = data.strength_score;
+						appData.models.userModel.attributes.avatar_stamina = data.stamina_score;
+						appData.models.userModel.attributes.avatar_equipment = data.equipment_score;
+
 						appData.settings.userLoggedIn = true;
 						appData.events.userLoggedInEvent.trigger("userLoggedInHandler");
 					}else{
@@ -174,9 +179,11 @@ appData.services.PhpServices = Backbone.Model.extend({
     			// initialLoad is when the app starts up
     			if(initialLoad){
     				appData.events.getActivitiesSuccesEvent.trigger("activitiesLoadedHandler");
-        		}else{
+        		}else if(forwardID){
         			// go to an activity after creating it
         			appData.router.navigate('activity/' + forwardID, true);
+        		}else{
+        			Backbone.trigger('dashboardUpdatedHandler');
         		}
         	}
     	});
@@ -231,12 +238,16 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	getActivityUsers: function(activityModel){
+
+
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.getActivityUserService,
 			type:'POST',
 			dataType:'json',
 			data: "activity_id="+activityModel.attributes.activity_id,
 			success:function(data){
+				console.log(data);
+
 				Backbone.trigger('activityUsersSuccesEvent', data);
 			},error: function(){
 			}
@@ -244,12 +255,15 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	setGoingToActivity: function(activity_id, going){
+
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.setGoingToActivityService,
 			type:'POST',
 			dataType:'json',
 			data: "user_id="+appData.models.userModel.attributes.user_id+"&going="+going+"&activity_id="+activity_id,
 			success:function(data){
+				console.log(data);
+
 				Backbone.trigger('goinToActivitySuccesEvent');
 			},error: function(){
 
@@ -330,10 +344,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	addPhotoToDatabase: function(imageName, activity_id){
-
-  		console.log(imageName);
-  		console.log(activity_id);
-
   		 $.ajax({
 			url:appData.settings.servicePath + appData.settings.addPhotoToDatabase,
 			type:'POST',
@@ -344,5 +354,44 @@ appData.services.PhpServices = Backbone.Model.extend({
         		Backbone.trigger('addPhotoToDatabaseHandler');
 			}
 		}); 
-  	}
+  	},
+
+  	getMyAvatar: function(){
+  		 $.ajax({
+			url:appData.settings.servicePath + appData.settings.getMyAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.models.attributes.avatar_data = data;
+        		Backbone.trigger('getAvatarCompleteHandler');
+			}
+		}); 
+  	},
+
+  	getUserAvatar: function(user_id){
+  		 $.ajax({
+			url:appData.settings.servicePath + appData.settings.getMyAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+user_id,
+			success:function(data){
+        		Backbone.trigger('getUserAvatarCompleteHandler');
+			}
+		}); 
+  	},
+
+  	getUserChallenges: function(user_id){
+  		 $.ajax({
+			url:appData.settings.servicePath + appData.settings.getUserChallengesService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+user_id,
+			success:function(data){
+        		Backbone.trigger('getUserChallengesCompleteHandler');
+			}
+		}); 
+  	},
+
+
 });
