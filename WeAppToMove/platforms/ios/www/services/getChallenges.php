@@ -1,6 +1,8 @@
 <?php
 	require_once("core_functions.php");
 
+	$user_id = 49;
+
 	$dbc = getDBConnection();		
 	$sql = "SELECT * FROM watm_challenges";
 

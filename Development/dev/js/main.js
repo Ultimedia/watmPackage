@@ -48,6 +48,16 @@ appData.settings.imageUploadService = "uploadService.php";
 appData.settings.addPhotoToDatabase = "addPhotoToDatabase.php";
 appData.settings.getMyAvatarService = "getMyAvatar.php";
 appData.settings.getUserChallengesService = "getUserChallengesService.php";
+appData.settings.updateAvatarService = "updateAvatar.php";
+appData.settings.getMyChallengesService = "getMyChallenges.php";
+appData.settings.joinChallengeService = "joinChallenge.php";
+appData.settings.getBadgesService = "getBadges.php";
+appData.settings.updateChallengeService = "updateChallengeScore.php";
+appData.settings.addSportService = "addSport.php";
+appData.settings.getFriendsService = "getMyFriends.php";
+appData.settings.addFriendService = "addFriend.php";
+appData.settings.getMyInvitationsService = "getMyInvitations.php";
+appData.settings.inviteFriendsService = "inviteFriends.php";
 
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;
@@ -68,7 +78,7 @@ $(document).on("ready", function () {
 
 
   appData.router = new appData.routers.AppRouter();
-  appData.utils.templates.load(["HomeView", "DashboardView", "PlannerView", "ProfileView", "ActivityDetailView", "CreateActivityView", "CreateUserView", "NavigationView", "SettingsView", "SportSelectorView", "DashboardActivityView", "LoadingView", "HelperView", "ChallengeListView", "ActivityMessageView", "ActivityMessageView", "ActivityInfoView", "ActivityMediaView", "ActivityMessagesView", "ActivityMediaViewer", "ActivityInfoView", "CreateActivityLocationView", "CreateActivityInfoView", "CreateActivityWieView", "ProfileAvatarView", "ProfileChallengeView", "ProfileFriendsView", "FriendsListView", "FriendView", "ActivityUserView", "PlannerMyActivitiesView", "GoogleMapView", "FavouriteSportListView"],
+  appData.utils.templates.load(["HomeView", "DashboardView", "PlannerView", "ProfileView", "ActivityDetailView", "CreateActivityView", "CreateUserView", "NavigationView", "SettingsView", "SportSelectorView", "DashboardActivityView", "LoadingView", "HelperView", "ChallengeListView", "ActivityMessageView", "ActivityMessageView", "ActivityInfoView", "ActivityMediaView", "ActivityMessagesView", "ActivityMediaViewer", "ActivityInfoView", "CreateActivityLocationView", "CreateActivityInfoView", "CreateActivityWieView", "ProfileAvatarView", "ProfileChallengeView", "ProfileFriendsView", "FriendsListView", "FriendView", "ActivityUserView", "PlannerMyActivitiesView", "GoogleMapView", "FavouriteSportListView", "ActiveChallengeListView", "BadgeListView", "FriendInvitieView", "PlannerInvitedActivitiesView"],
 
   // backbone loaded
   function () {
@@ -123,7 +133,7 @@ $(document).on("ready", function () {
       appData.helpers.phonegapHelper = new appData.views.HelperView();
 
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        appData.settings.rootPath = "http://172.30.39.167/";
+        appData.settings.rootPath = "http://172.30.39.149/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
         appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";

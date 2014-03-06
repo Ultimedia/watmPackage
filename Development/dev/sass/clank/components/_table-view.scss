@@ -6,23 +6,7 @@
 }
 
 @mixin table-cell-skin-hover {
-  &:hover,
-  &:active,
-  &:focus,
-  &.active {
-    color: $very-light-color;
-    a, .disclosure-help, .icon {
-      color: $very-light-color;
-    }
-    @if $gradient {
-      @include gradient-vertical(lighten($accent-color, 10%), $accent-color);
-    } @else {
-      background: $accent-color;
-    }
-    @if $text-shadows {
-      @include text-shadow-black;
-    }
-  }
+
 }
 
 /* ==========================================================================
@@ -64,7 +48,6 @@
   position: relative;
   width: 100%;
   @include table-cell-skin;
-  @include table-cell-skin-hover;
 }
 
 .cl-table-row {

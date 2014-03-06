@@ -13,22 +13,40 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
         appData.views.CreateActivityLocationView.tabTarget = {};
         appData.views.CreateActivityLocationView.tabTarget.location = "#wieContent";
         appData.views.CreateActivityLocationView.tabTarget.tab = "#wieTab";
+        appData.views.CreateActivityLocationView.markers = [];
+        appData.views.CreateActivityLocationView.clearMarkers = this.clearMarkers;
     },
 
     events: {
         "keyup #locationInput": "locationChangeHandler"
     },
 
+    clearMarkers: function(){
+        for (var i=0; i<appData.views.CreateActivityLocationView.markers.length; i++) {
+          appData.views.CreateActivityLocationView.markers[i].setVisible(false);
+        }
+
+        appData.views.CreateActivityLocationView.markers = [];
+    },
+
     getLatLonSuccesHandler: function(data){
         if(data.geometry){
-           appData.views.CreateActivityLocationView.currentMapLocation = data.geometry.location.lat + "," + data.geometry.location.lng;
 
-           var marker = new google.maps.Marker({
+            appData.views.CreateActivityLocationView.currentMapLocation = data.geometry.location.lat + "," + data.geometry.location.lng;
+            appData.views.CreateActivityLocationView.clearMarkers();
+
+            var marker = new google.maps.Marker({
               position: new google.maps.LatLng(data.geometry.location.lat, data.geometry.location.lng),
               map:  appData.views.CreateActivityLocationView.map,
               title: data.formatted_address
             });
 
+            google.maps.event.addListener(marker, 'click', function() {
+                appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
+            });
+
+            appData.views.CreateActivityLocationView.infowindow.setContent(data.formatted_address);
+            appData.views.CreateActivityLocationView.markers.push(marker);
             appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(data.geometry.location.lat, data.geometry.location.lng), 13);
         }
     },
@@ -47,7 +65,6 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
                         var coordinates = selectedLocationModel.attributes.coordinates.split(',');
                             appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
                     }
-
             }else{
                 appData.services.utilService.getLatLon($('#locationInput').val());
             }
@@ -57,9 +74,6 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
 
     addedLocationSuccesEvent: function(location_id){
         appData.views.ActivityDetailView.model.attributes.location_id = location_id;
-
-        console.log(appData.views.ActivityDetailView.model.attributes);
-
         appData.events.createActivityTabsEvent.trigger('formStageCompleteEvent', appData.views.CreateActivityLocationView.tabTarget);
     },
 
@@ -85,7 +99,8 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
         }
         var page = this.$el;
         appData.views.CreateActivityLocationView.map = new google.maps.Map($('#map_canvas',page)[0], mapOptions);
-    
+        appData.views.CreateActivityLocationView.infowindow = new google.maps.InfoWindow();
+
         if(appData.settings.native){
             appData.services.utilService.getLocationService("createActivity");
         }
@@ -93,15 +108,24 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
     },
 
     locationSuccesHandler: function(position){
-
-
+        appData.views.CreateActivityLocationView.clearMarkers();
         appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 13);
+        
+        console.log(position);
+
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
           map:  appData.views.CreateActivityLocationView.map,
           title: 'Huidige locatie'
         });
 
+        appData.views.CreateActivityLocationView.infowindow.setContent('ddddddddd');
+
+        google.maps.event.addListener(marker, 'click', function() {
+            appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
+        });
+
+        appData.views.CreateActivityLocationView.markers.push(marker);
     },
 
     locationErrorHandler: function(location_id){

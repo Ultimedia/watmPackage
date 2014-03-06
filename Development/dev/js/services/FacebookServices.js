@@ -62,9 +62,9 @@ appData.services.FacebookServices = Backbone.Model.extend({
 			data: "facebook_id="+appData.models.userModel.attributes.facebook_id,
 			timeout:60000,
 			success:function(data){		
-				appData.models.userModel.attributes.avatar_strength = data.strength_score;
-				appData.models.userModel.attributes.avatar_stamina = data.stamina_score;
-				appData.models.userModel.attributes.avatar_equipment = data.equipment_score;
+				appData.models.userModel.attributes.strength_score = data.strength_score;
+				appData.models.userModel.attributes.stamina_score = data.stamina_score;
+				appData.models.userModel.attributes.equipment_score = data.equipment_score;
 				appData.events.getUserFromFacebookIDEvent.trigger("facebookGetIDHandler", data);
 			}
 		});

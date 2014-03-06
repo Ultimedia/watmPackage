@@ -50,6 +50,16 @@ appData.settings.imageUploadService = "uploadService.php";
 appData.settings.addPhotoToDatabase = "addPhotoToDatabase.php";
 appData.settings.getMyAvatarService = "getMyAvatar.php";
 appData.settings.getUserChallengesService = "getUserChallengesService.php";
+appData.settings.updateAvatarService = "updateAvatar.php";
+appData.settings.getMyChallengesService = "getMyChallenges.php";
+appData.settings.joinChallengeService = "joinChallenge.php";
+appData.settings.getBadgesService = "getBadges.php";
+appData.settings.updateChallengeService = "updateChallengeScore.php";
+appData.settings.addSportService = "addSport.php";
+appData.settings.getFriendsService = "getMyFriends.php";
+appData.settings.addFriendService = "addFriend.php";
+appData.settings.getMyInvitationsService = "getMyInvitations.php";
+appData.settings.inviteFriendsService = "inviteFriends.php";
 
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;
@@ -70,7 +80,7 @@ $(document).on("ready", function () {
 
 
   appData.router = new appData.routers.AppRouter();
-  appData.utils.templates.load(["HomeView", "DashboardView", "PlannerView", "ProfileView", "ActivityDetailView", "CreateActivityView", "CreateUserView", "NavigationView", "SettingsView", "SportSelectorView", "DashboardActivityView", "LoadingView", "HelperView", "ChallengeListView", "ActivityMessageView", "ActivityMessageView", "ActivityInfoView", "ActivityMediaView", "ActivityMessagesView", "ActivityMediaViewer", "ActivityInfoView", "CreateActivityLocationView", "CreateActivityInfoView", "CreateActivityWieView", "ProfileAvatarView", "ProfileChallengeView", "ProfileFriendsView", "FriendsListView", "FriendView", "ActivityUserView", "PlannerMyActivitiesView", "GoogleMapView", "FavouriteSportListView"],
+  appData.utils.templates.load(["HomeView", "DashboardView", "PlannerView", "ProfileView", "ActivityDetailView", "CreateActivityView", "CreateUserView", "NavigationView", "SettingsView", "SportSelectorView", "DashboardActivityView", "LoadingView", "HelperView", "ChallengeListView", "ActivityMessageView", "ActivityMessageView", "ActivityInfoView", "ActivityMediaView", "ActivityMessagesView", "ActivityMediaViewer", "ActivityInfoView", "CreateActivityLocationView", "CreateActivityInfoView", "CreateActivityWieView", "ProfileAvatarView", "ProfileChallengeView", "ProfileFriendsView", "FriendsListView", "FriendView", "ActivityUserView", "PlannerMyActivitiesView", "GoogleMapView", "FavouriteSportListView", "ActiveChallengeListView", "BadgeListView", "FriendInvitieView", "PlannerInvitedActivitiesView"],
 
   // backbone loaded
   function () {
@@ -125,7 +135,7 @@ $(document).on("ready", function () {
       appData.helpers.phonegapHelper = new appData.views.HelperView();
 
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        appData.settings.rootPath = "http://172.30.39.167/";
+        appData.settings.rootPath = "http://172.30.39.149/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
         appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
@@ -267,12 +277,13 @@ User = Backbone.Model.extend({
 	    email: '',
 	    facebook_data: {},
 	    facebookUser: false,
-	    friends: [],
 	    current_location: "50.827404, 3.254647",
     	avatar_strength: 0,
     	avatar_equipment: 0,
     	avatar_stamina: 0,
-    	avatar: ""
+    	avatar: "",
+    	myChallenges: [],
+    	myBadges: []
     },
 	initialize: function(){
 		
@@ -383,6 +394,24 @@ UsersCollection = Backbone.Collection.extend({
 	}
 });
 
+appData.views.ActiveChallengeListView = Backbone.View.extend({
+
+    initialize: function () {
+    	this.model.attributes.badges_path = appData.settings.badgesPath;
+
+    }, 
+
+    render: function() { 
+    	// model to template
+    	this.$el.html(this.template(this.model.attributes));
+        return this; 
+    }
+
+});
+
+
+
+
 appData.views.ActivityDetailView = Backbone.View.extend({
 
     initialize: function () {
@@ -410,6 +439,10 @@ appData.views.ActivityDetailView = Backbone.View.extend({
 
       return this; 
     }, 
+
+    shareButtonHandler: function(){
+        //appData.services.phpService.updateChallenge(3, 40);
+    },
 
     addMap: function(){
         appData.settings.mapAdded = true;
@@ -440,7 +473,13 @@ appData.views.ActivityDetailView = Backbone.View.extend({
     events: {
       "click #activityDetailTabs .cl-btn": "activeDetailTabsHandler",
       "click #navigateButton": "navigateClickHandler",
-      "click #backButton": "backHandler"
+      "click #backButton": "backHandler",
+      "click #shareButton": "sharePopopverClickHandler",
+      "click #popover-close": "sharePopopverClickHandler"
+    },
+
+    sharePopopverClickHandler: function(e){
+        $('#popover', appData.settings.currentPageHTML).toggleClass('hide');
     },
 
     backHandler: function(){
@@ -521,6 +560,7 @@ appData.views.ActivityInfoView = Backbone.View.extend({
 
         appData.models.activityModel.userData = new UsersCollection(data);
 
+
         // 1 set toggle switch for going
         var goingTo = appData.models.activityModel.userData.where({user_id:appData.models.userModel.attributes.user_id.toString()});
             goingTo = goingTo[0];
@@ -529,6 +569,10 @@ appData.views.ActivityInfoView = Backbone.View.extend({
             $('#praktischContent .radio-list label').removeClass('checked');
             $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).parent().addClass('checked');
             $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).prop('checked', true);
+        }else{
+            $('#praktischContent .radio-list label').removeClass('checked');
+            $("#going-0", appData.settings.currentModuleHTML).parent().addClass('checked');
+            $("#going-0", appData.settings.currentModuleHTML).prop('checked', true);
         }
 
         // 2 show friends that are going
@@ -742,7 +786,7 @@ appData.views.ActivityMediaView = Backbone.View.extend({
 
 
 
-appData.views.ChallengeListView = Backbone.View.extend({
+appData.views.BadgeListView = Backbone.View.extend({
 
     initialize: function () {
     	this.model.attributes.badges_path = appData.settings.badgesPath;
@@ -760,10 +804,62 @@ appData.views.ChallengeListView = Backbone.View.extend({
 
 
 
+appData.views.ChallengeListView = Backbone.View.extend({
+
+    initialize: function () {
+    	this.model.attributes.badges_path = appData.settings.badgesPath;
+
+    }, 
+
+    render: function() { 
+    	// model to template
+    	this.$el.html(this.template(this.model.attributes));
+        return this; 
+    },
+
+    events: {
+    	"click .joinChallenge": "joinChallengeClickHandler"
+    },
+
+    joinChallengeClickHandler: function(evt){
+    	appData.services.phpService.joinChallenge($(evt.target).attr('challenge-id'));
+    }
+
+});
+
+
+
+
+appData.views.ChallengeListView = Backbone.View.extend({
+
+    initialize: function () {
+    	this.model.attributes.badges_path = appData.settings.badgesPath;
+
+    }, 
+
+    render: function() { 
+    	// model to template
+    	this.$el.html(this.template(this.model.attributes));
+        return this; 
+    },
+
+    events: {
+    	"click .joinChallenge": "joinChallengeClickHandler"
+    },
+
+    joinChallengeClickHandler: function(evt){
+    	appData.services.phpService.joinChallenge($(evt.target).attr('challenge-id'));
+    }
+
+});
+
+
+
+
 appData.views.CreateActivityInfoView = Backbone.View.extend({
 
     initialize: function () {
-
+      appData.views.CreateActivityInfoView.addedSportHandler = this.addedSportHandler;
     },
 
     render: function() { 
@@ -777,6 +873,13 @@ appData.views.CreateActivityInfoView = Backbone.View.extend({
       return this; 
     },
 
+    addedSportHandler: function(data){
+      Backbone.off("addedSportHandler");
+      appData.views.ActivityDetailView.model.attributes.sport_id = data.sport_id;
+      // all saved
+      appData.events.createActivityTabsEvent.trigger('formStageCompleteEvent', appData.views.CreateActivityInfoView.tabTarget);
+    },
+
     setValidator: function(){
 
         $('#wanneerInput', appData.settings.currentModuleHTML).val(new Date().toDateInputValue());
@@ -788,16 +891,31 @@ appData.views.CreateActivityInfoView = Backbone.View.extend({
             }
           },
           submitHandler: function(form) {
-              appData.views.ActivityDetailView.model.attributes.title = $('#titelInput', appData.settings.currentModuleHTML).val();
-              appData.views.ActivityDetailView.model.attributes.date = $('#wanneerInput', appData.settings.currentModuleHTML).val() + " " + $('#timeInput', appData.settings.currentModuleHTML).val();
-              appData.views.ActivityDetailView.model.attributes.description = $('#omschrijvingInput', appData.settings.currentModuleHTML).val();
 
-              var tabTarget = {};
-                  tabTarget.location = "#waarContent";
-                  tabTarget.tab = "#waarTab";
+            appData.views.ActivityDetailView.model.attributes.title = $('#titelInput', appData.settings.currentModuleHTML).val();
+            appData.views.ActivityDetailView.model.attributes.date = $('#wanneerInput', appData.settings.currentModuleHTML).val() + " " + $('#timeInput', appData.settings.currentModuleHTML).val();
+            appData.views.ActivityDetailView.model.attributes.description = $('#omschrijvingInput', appData.settings.currentModuleHTML).val();
 
-              appData.events.createActivityTabsEvent.trigger('formStageCompleteEvent', tabTarget);
-         }
+            appData.views.CreateActivityInfoView.tabTarget = {};
+            appData.views.CreateActivityInfoView.tabTarget.location = "#waarContent";
+            appData.views.CreateActivityInfoView.tabTarget.tab = "#waarTab";
+      
+            var selectedSport = appData.collections.sports.where({"sport_id": appData.views.ActivityDetailView.model.attributes.sport_id});
+            if(selectedSport.length > 0){
+                selectedSport = selectedSport[0];
+
+                if(selectedSport.attributes.sport_title == $('#sportInput', appData.settings.currentModuleHTML).val()){
+                  appData.events.createActivityTabsEvent.trigger('formStageCompleteEvent', appData.views.CreateActivityInfoView.tabTarget);
+          
+                }else{
+                  Backbone.on("addedSportHandler",  appData.views.CreateActivityInfoView.addedSportHandler); 
+                  appData.services.phpService.addSport($('#sportInput', appData.settings.currentModuleHTML).val(), "",""); 
+                }
+            }else{
+                  Backbone.on("addedSportHandler",  appData.views.CreateActivityInfoView.addedSportHandler);
+                  appData.services.phpService.addSport($('#sportInput', appData.settings.currentModuleHTML).val(), "",""); 
+            }
+          }
       });
     }
 });
@@ -817,22 +935,40 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
         appData.views.CreateActivityLocationView.tabTarget = {};
         appData.views.CreateActivityLocationView.tabTarget.location = "#wieContent";
         appData.views.CreateActivityLocationView.tabTarget.tab = "#wieTab";
+        appData.views.CreateActivityLocationView.markers = [];
+        appData.views.CreateActivityLocationView.clearMarkers = this.clearMarkers;
     },
 
     events: {
         "keyup #locationInput": "locationChangeHandler"
     },
 
+    clearMarkers: function(){
+        for (var i=0; i<appData.views.CreateActivityLocationView.markers.length; i++) {
+          appData.views.CreateActivityLocationView.markers[i].setVisible(false);
+        }
+
+        appData.views.CreateActivityLocationView.markers = [];
+    },
+
     getLatLonSuccesHandler: function(data){
         if(data.geometry){
-           appData.views.CreateActivityLocationView.currentMapLocation = data.geometry.location.lat + "," + data.geometry.location.lng;
 
-           var marker = new google.maps.Marker({
+            appData.views.CreateActivityLocationView.currentMapLocation = data.geometry.location.lat + "," + data.geometry.location.lng;
+            appData.views.CreateActivityLocationView.clearMarkers();
+
+            var marker = new google.maps.Marker({
               position: new google.maps.LatLng(data.geometry.location.lat, data.geometry.location.lng),
               map:  appData.views.CreateActivityLocationView.map,
               title: data.formatted_address
             });
 
+            google.maps.event.addListener(marker, 'click', function() {
+                appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
+            });
+
+            appData.views.CreateActivityLocationView.infowindow.setContent(data.formatted_address);
+            appData.views.CreateActivityLocationView.markers.push(marker);
             appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(data.geometry.location.lat, data.geometry.location.lng), 13);
         }
     },
@@ -851,7 +987,6 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
                         var coordinates = selectedLocationModel.attributes.coordinates.split(',');
                             appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
                     }
-
             }else{
                 appData.services.utilService.getLatLon($('#locationInput').val());
             }
@@ -861,9 +996,6 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
 
     addedLocationSuccesEvent: function(location_id){
         appData.views.ActivityDetailView.model.attributes.location_id = location_id;
-
-        console.log(appData.views.ActivityDetailView.model.attributes);
-
         appData.events.createActivityTabsEvent.trigger('formStageCompleteEvent', appData.views.CreateActivityLocationView.tabTarget);
     },
 
@@ -889,7 +1021,8 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
         }
         var page = this.$el;
         appData.views.CreateActivityLocationView.map = new google.maps.Map($('#map_canvas',page)[0], mapOptions);
-    
+        appData.views.CreateActivityLocationView.infowindow = new google.maps.InfoWindow();
+
         if(appData.settings.native){
             appData.services.utilService.getLocationService("createActivity");
         }
@@ -897,15 +1030,24 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
     },
 
     locationSuccesHandler: function(position){
-
-
+        appData.views.CreateActivityLocationView.clearMarkers();
         appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 13);
+        
+        console.log(position);
+
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
           map:  appData.views.CreateActivityLocationView.map,
           title: 'Huidige locatie'
         });
 
+        appData.views.CreateActivityLocationView.infowindow.setContent('ddddddddd');
+
+        google.maps.event.addListener(marker, 'click', function() {
+            appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
+        });
+
+        appData.views.CreateActivityLocationView.markers.push(marker);
     },
 
     locationErrorHandler: function(location_id){
@@ -988,12 +1130,26 @@ appData.views.CreateActivityView = Backbone.View.extend({
 
 appData.views.CreateActivityWieView = Backbone.View.extend({
     initialize: function () {
+        appData.views.friendsListView = [];
+        appData.collections.selectedFriends = new UsersCollection();
+        appData.views.CreateActivityWieView.activityCreatedHandler = this.activityCreatedHandler;
+        appData.views.CreateActivityWieView.friendsInvitedHandler = this.friendsInvitedHandler;
 
+        $(appData.models.userModel.attributes.myFriends.models).each(function(index, userModel) {
+            appData.views.friendsListView.push(new appData.views.FriendInvitieView({
+              model:userModel,
+            }));
+        });
     },
 
     render: function() { 
       this.$el.html(this.template(this.model.attributes));
       appData.settings.currentModuleHTML = this.$el;
+      
+      _(appData.views.friendsListView).each(function(listView) {
+          $('#friendsList', appData.settings.currentModuleHTML).append(listView.render().$el);
+      });
+
       this.setValidator();
       return this; 
     },
@@ -1001,11 +1157,23 @@ appData.views.CreateActivityWieView = Backbone.View.extend({
     setValidator: function(){
     	var that = this;
         $("#wieForm",appData.settings.currentModuleHTML).validate({
-
             submitHandler: function(form){
-                appData.services.phpService.createActivity(appData.views.ActivityDetailView.model);
+              Backbone.on('activityCreated', appData.views.CreateActivityWieView.activityCreatedHandler);
+              appData.services.phpService.createActivity(appData.views.ActivityDetailView.model);
             }
         });
+    },
+
+    activityCreatedHandler: function(activity_id){
+      // now add friends
+      appData.views.CreateActivityWieView.activity_id = activity_id;
+      Backbone.on('friendsInvitedHandler', appData.views.CreateActivityWieView.friendsInvitedHandler);
+      appData.services.phpService.inviteFriends(appData.collections.selectedFriends, activity_id);
+    },
+
+    friendsInvitedHandler: function(){
+      Backbone.off('friendsInvitedHandler');      
+      appData.services.phpService.getActivities(false, appData.views.CreateActivityWieView.activity_id);
     }
 
 });
@@ -1098,6 +1266,8 @@ appData.views.DashboardActivityView = Backbone.View.extend({
 appData.views.DashboardView = Backbone.View.extend({
 
     initialize: function () {
+        console.log(appData.collections);
+
         var that = this;
         this.searching = false;
      
@@ -1255,27 +1425,81 @@ appData.views.FavouriteSportListView = Backbone.View.extend({
 
 
 
-appData.views.FriendView = Backbone.View.extend({
+appData.views.FriendInvitieView = Backbone.View.extend({
 
     initialize: function () {
-      console.log('----- In the initialize of FriendView -----');
       appData.views.FriendView.model = this.model;
+
+      console.log(this.model.attributes.user_id);
     },
 
     render: function() { 
-      this.$el.html(this.template(this.model.attributes));
+      this.$el.html(this.template(this.model.toJSON()));
       appData.settings.currentPageHTML = this.$el;
       return this; 
     }, 
 
     events: {
-      "click #backButton": "backHandler"
+      "click .inviteButton": "friendInviteHandler"
+    },
+
+    friendInviteHandler: function(evt){
+      $(evt.target).toggleClass('selected');
+      if($(evt.target).hasClass('selected')){
+        $(evt.target).text('Uitgenodigd');
+
+        var selected = appData.models.userModel.attributes.myFriends.where({ "user_id": $(evt.target, appData.settings.currentPageHTML).attr('data-id')})[0];
+        appData.collections.selectedFriends.push(selected)
+
+      }else{
+        $(evt.target).text('Niet uitgenodigd');
+        var m = appData.collections.selectedFriends.where({ "user_id": $(evt.target, appData.settings.currentPageHTML).attr('data-id')})[0];
+        appData.collections.selectedFriends.remove(m);
+      }
+
+      console.log(appData.collections.selectedFriends);
+    }
+});
+
+appData.views.FriendView = Backbone.View.extend({
+
+    initialize: function () {
+      appData.views.FriendView.model = this.model;
+
+      // is this a friend?
+      if(appData.models.userModel.attributes.myFriends.where({"user_id": this.model.attributes.user_id}).length > 0){
+        this.model.attributes.myFriend = true;
+      }else if(appData.views.FriendView.model.attributes.user_id == appData.models.userModel.attributes.user_id){
+        this.model.attributes.myFriend = true;
+      }else{
+        this.model.attributes.myFriend = false;
+      }
+    },
+
+    render: function() { 
+      this.$el.html(this.template(this.model.toJSON()));
+      appData.settings.currentPageHTML = this.$el;
+      return this; 
+    }, 
+
+    events: {
+      "click #backButton": "backHandler",
+      "click #addFriendButton": "addFriendHandler"
+    },
+
+    addFriendHandler: function(){
+      Backbone.on('addedFriendHandler', this.addedAsFriendHandler);
+      appData.services.phpService.addFriend(appData.views.FriendView.model.attributes.user_id, appData.models.userModel.attributes.user_id);
     },
 
     backHandler: function(){
       window.history.back();
     },
 
+    addedAsFriendHandler: function(){
+      Backbone.off('addedFriendHandler');
+      $('#addFriendButton', appData.settings.currentPageHTML).remove();
+    }
 });
 
 
@@ -1470,15 +1694,17 @@ appData.views.LoadingView = Backbone.View.extend({
     initialize: function () {
         appData.events.getActivitiesSuccesEvent.bind("activitiesLoadedHandler", this.activitiesLoadedHandler);
         appData.events.getSportsSuccesEvent.bind("sportsLoadedHandler", this.sportsLoadedHandlers);
-        appData.events.getChallengesSuccesEvent.bind("challengesLoadedHandler", this.challengesLoadedHandler);
         appData.events.getUsersSuccesEvent.bind("usersLoadedHandler", this.usersLoadedHandler)
         appData.events.getBuurtenEvent.bind("buurtenLoadedHandler", this.buurtenLoadedHandler);
         appData.events.getLocationsSuccesEvent.bind("getLocationsSuccesHandler", this.getLocationsSuccesHandler);
+        Backbone.on('getChallengesHandler', this.getChallengesHandler)
         Backbone.on('myPlannedActivitiesLoadedHandler', this.getMyPlannedActivitiesLoadedHandler);
         Backbone.on('myActivitiesLoadedHandler', this.getMyActivitiesLoadedHandler);
         Backbone.on('getFavouriteSportsHandler', this.getFavouriteSportsHandler)
         Backbone.on('getMyFavouriteSportsHandler', this.getMyFavouriteSportsHandler)
-
+        Backbone.on('getMyChallengesHandler', this.getMyChallengesHandler);
+        Backbone.on('getMyBadgesHandler', this.getMyBadgesHandler);
+        Backbone.on('getFriendsHandler', this.getMyFriendsHandler)
     },
 
     render: function() {
@@ -1494,10 +1720,12 @@ appData.views.LoadingView = Backbone.View.extend({
     },
 
     sportsLoadedHandlers: function(){
+        
         appData.services.phpService.getChallenges();
     },
 
-    challengesLoadedHandler: function(){
+    getChallengesHandler: function(){
+        Backbone.off('getChallengesHandler');
         appData.services.phpService.getUsers();
     },
 
@@ -1529,20 +1757,31 @@ appData.views.LoadingView = Backbone.View.extend({
     },
 
     getMyFavouriteSportsHandler: function(){
+        appData.services.phpService.getMyChallengesHandler();
         Backbone.off('getMyFavouriteSportsHandler');
-        appData.settings.dataLoaded = true;
+    },
 
-        console.log(appData.collections);
-        console.log(appData.models.userModel);
+    getMyChallengesHandler: function(){
+        Backbone.off('getMyChallengesHandler');
+        appData.services.phpService.getMyBadges();
+    },
+
+    getMyBadgesHandler: function(){
+        Backbone.off('getMyBadgesHandler');
+        appData.services.phpService.getFriends();
+    },
+
+    getMyFriendsHandler: function(){
+        Backbone.off('getFriendsHandler');
+        appData.settings.dataLoaded = true;
 
         if(appData.collections.myFavouriteSports.length > 0){
             appData.router.navigate('dashboard', true);
         }else{
             appData.router.navigate('sportselector', true);
         }
-
-
     }
+
 });
 
 
@@ -1732,6 +1971,19 @@ appData.views.NavigationView = Backbone.View.extend({
 
 
 
+appData.views.PlannerInvitedActivitiesView = Backbone.View.extend({
+
+    initialize: function () {
+
+    },
+
+    render: function () {
+        this.$el.html(this.template(this.model.attributes));
+
+        return this; 
+    }
+});
+
 appData.views.PlannerMyActivitiesView = Backbone.View.extend({
 
     initialize: function () {
@@ -1750,6 +2002,7 @@ appData.views.PlannerView = Backbone.View.extend({
   initialize: function () {
     Backbone.on('myPlannedActivitiesLoadedHandler', this.updatePlanner);
     Backbone.on('myActivitiesLoadedHandler', this.updatePlannerComplete);
+    Backbone.on('getInvitationsHandler', this.getInvitationsHandler)
 
     appData.services.phpService.getMyPlannedActivities();
   },
@@ -1759,11 +2012,19 @@ appData.views.PlannerView = Backbone.View.extend({
   },
 
   updatePlannerComplete: function(){
-    Backbone.off('myPlannedActivitiesLoadedHandler', this.updatePlanner);
-    Backbone.off('myActivitiesLoadedHandler', this.updatePlannerComplete);
+      appData.services.phpService.getMyInvitations();
+  },
+
+  getInvitationsHandler: function(){
+    console.log(appData.collections);
+
+    Backbone.off('myPlannedActivitiesLoadedHandler');
+    Backbone.off('myActivitiesLoadedHandler');
+    Backbone.off('getInvitationsHandler');
 
     appData.views.PlannerView.myActivitiesView = [];
     appData.views.PlannerView.myJoinedActivitiesView = [];
+    appData.views.PlannerView.myInvitedActivitiesView = [];
 
     // get my activities
     appData.collections.myActivities.each(function(activity) {
@@ -1775,7 +2036,11 @@ appData.views.PlannerView = Backbone.View.extend({
       appData.views.PlannerView.myJoinedActivitiesView.push(new appData.views.PlannerMyActivitiesView({model : myActivity}));
     });
 
-
+    // get the activtities I'm inviited to
+    appData.collections.myInvitations.each(function(invitedActivity) {
+      appData.views.PlannerView.myInvitedActivitiesView.push(new appData.views.PlannerInvitedActivitiesView({model : invitedActivity}));
+    });
+ 
     if(appData.views.PlannerView.myActivitiesView.length > 0){
       $('#myActivitiesPlanner', appData.settings.currentPageHTML).removeClass('hide');
       $('#myActivitiesTable', appData.settings.currentPageHTML).empty();
@@ -1793,12 +2058,20 @@ appData.views.PlannerView = Backbone.View.extend({
         $('#myPlanningTable', appData.settings.currentPageHTML).append(dv.render().$el);
       });
     }
+
+    if(appData.views.PlannerView.myInvitedActivitiesView.length > 0){
+      $('#myInvitationsPlanner', appData.settings.currentPageHTML).removeClass('hide');
+      $('#myInvitationsTable', appData.settings.currentPageHTML).empty();
+
+      _(appData.views.PlannerView.myInvitedActivitiesView).each(function(dv) {
+        $('#myInvitationsTable', appData.settings.currentPageHTML).append(dv.render().$el);
+      });
+    }
   },
 
   render: function () {
     this.$el.html(this.template());
     appData.settings.currentPageHTML = this.$el;
-
 
     return this;
   }
@@ -1808,43 +2081,127 @@ appData.views.PlannerView = Backbone.View.extend({
 appData.views.ProfileAvatarView = Backbone.View.extend({
 
     initialize: function () {
-
+    	Backbone.on('updateAvatarCompleteHandler', this.updateAvatarCompleteHandler)
     },
     
     render: function() { 
+        console.log(appData.models.userModel);
+
     	this.$el.html(this.template(appData.models.userModel.toJSON()));
         appData.settings.currentModuleHTML = this.$el;
         return this; 
+    },
+
+    events:{
+    	"click #updateAvatar": "updateAvatarHandler"
+    },
+
+    updateAvatarHandler: function(){
+    	appData.services.phpService.updateAvatar();
+    },
+
+    updateAvatarCompleteHandler: function(){
+
     }
 });
 
 appData.views.ProfileChallengeView = Backbone.View.extend({
 
     initialize: function () {
+        appData.views.ProfileChallengeView.updateChallenges = this.updateChallenges;
+        appData.views.ProfileChallengeView.getChallengesCompleteHandler = this.getChallengesCompleteHandler;
+        appData.views.ProfileChallengeView.getMyChallengesCompleteHandler = this.getMyChallengesCompleteHandler;
+        appData.views.ProfileChallengeView.getMyBadgesCompleteHandler = this.getMyBadgesCompleteHandler;
+        
+        Backbone.on('joinedChallengeHandler', this.joinedChallengeSuccesHandler);
+        Backbone.on('getChallengesHandler', appData.views.ProfileChallengeView.getChallengesCompleteHandler);
+        appData.services.phpService.getChallenges();
+    },
+
+    render: function() { 
+    	this.$el.html(this.template());
+        appData.settings.currentModuleHTML = this.$el;
+        this.updateChallenges();
+
+        return this; 
+    },
+
+    joinedChallengeSuccesHandler: function(){
+        Backbone.on('getChallengesHandler', appData.views.ProfileChallengeView.getChallengesCompleteHandler);
+        appData.services.phpService.getChallenges();
+    },
+
+    getChallengesCompleteHandler: function(){
+        Backbone.off('getChallengesHandler');
+        Backbone.on('getMyChallengesHandler', appData.views.ProfileChallengeView.getMyChallengesCompleteHandler);
+        appData.services.phpService.getMyChallengesHandler();
+    },
+
+    getMyChallengesCompleteHandler: function(){
+        Backbone.off('getMyChallengesHandler');
+        Backbone.on('getMyBadgesHandler', appData.views.ProfileChallengeView.getMyBadgesCompleteHandler);
+        appData.services.phpService.getMyBadges();
+    },
+
+    getMyBadgesCompleteHandler: function(){
+        Backbone.off('getMyBadgesHandler');
+        appData.views.ProfileChallengeView.updateChallenges();
+    },
+
+    updateChallenges: function(){
         appData.views.challengeListView = [];
         appData.collections.challenges.each(function(challenge) {
         appData.views.challengeListView.push(new appData.views.ChallengeListView({
             model : challenge
           }));
         });
-    },
 
-    render: function() { 
-    	this.$el.html(this.template());
-        appData.settings.currentModuleHTML = this.$el;
-
-        _(appData.views.challengeListView).each(function(listView) {
-            $('#challengesList', appData.settings.currentModuleHTML).append(listView.render().$el);
+        appData.views.myChallengesListView = [];
+        appData.models.userModel.attributes.myChallenges.each(function(myChallenge){
+        appData.views.myChallengesListView.push(new appData.views.ActiveChallengeListView({
+            model: myChallenge
+            }));
         });
 
-        return this; 
+        appData.views.myBadgesListView = [];
+        appData.models.userModel.attributes.myBadges.each(function(myBadge){
+        appData.views.myBadgesListView.push(new appData.views.BadgeListView({
+            model: myBadge
+            }));
+        });
+
+        $('#challengesOverview', appData.settings.currentModuleHTML).addClass('hide');
+        $('#challengesOverviewTable', appData.settings.currentModuleHTML).empty();
+        if(appData.views.challengeListView.length > 0){
+            $('#challengesOverview', appData.settings.currentModuleHTML).removeClass('hide');
+            _(appData.views.challengeListView).each(function(listView) {
+                $('#challengesOverviewTable', appData.settings.currentModuleHTML).append(listView.render().$el);
+            });
+        }
+
+        $('#myChallengesOverview', appData.settings.currentModuleHTML).addClass('hide');
+        $('#myChallengesOverviewTable', appData.settings.currentModuleHTML).empty();
+        if(appData.views.myChallengesListView.length > 0){
+            $('#myChallengesOverview', appData.settings.currentModuleHTML).removeClass('hide');
+            _(appData.views.myChallengesListView).each(function(listView) {
+                $('#myChallengesOverviewTable', appData.settings.currentModuleHTML).append(listView.render().$el);
+            });
+        }
+
+        $('#badgesOverview', appData.settings.currentModuleHTML).addClass('hide').empty();
+        if(appData.views.myBadgesListView.length > 0){
+            $('#badgesOverview', appData.settings.currentModuleHTML).removeClass('hide');
+            _(appData.views.myBadgesListView).each(function(listView) {
+                $('#badgesOverview', appData.settings.currentModuleHTML).append(listView.render().$el);
+            });
+        }
     }
 });
 
 appData.views.ProfileFriendsView = Backbone.View.extend({
     initialize: function () {
     	appData.views.friendsListView = [];
-        $(appData.models.userModel.attributes.friends.models).each(function(index, userModel) {
+        $(appData.models.userModel.attributes.myFriends.models).each(function(index, userModel) {
         	console.log(userModel);
 
        	appData.views.friendsListView.push(new appData.views.FriendsListView({
@@ -1857,10 +2214,8 @@ appData.views.ProfileFriendsView = Backbone.View.extend({
     	this.$el.html(this.template());
         appData.settings.currentModuleHTML = this.$el;
 
-        console.log(appData.views.friendsListView);
-
         _(appData.views.friendsListView).each(function(listView) {
-            $('#friendsListView', appData.settings.currentModuleHTML).append(listView.render().$el);
+            $('#profileFriendsListView', appData.settings.currentModuleHTML).append(listView.render().$el);
         });
 
         return this; 
@@ -2219,9 +2574,9 @@ appData.services.FacebookServices = Backbone.Model.extend({
 			data: "facebook_id="+appData.models.userModel.attributes.facebook_id,
 			timeout:60000,
 			success:function(data){		
-				appData.models.userModel.attributes.avatar_strength = data.strength_score;
-				appData.models.userModel.attributes.avatar_stamina = data.stamina_score;
-				appData.models.userModel.attributes.avatar_equipment = data.equipment_score;
+				appData.models.userModel.attributes.strength_score = data.strength_score;
+				appData.models.userModel.attributes.stamina_score = data.stamina_score;
+				appData.models.userModel.attributes.equipment_score = data.equipment_score;
 				appData.events.getUserFromFacebookIDEvent.trigger("facebookGetIDHandler", data);
 			}
 		});
@@ -2296,10 +2651,13 @@ appData.services.PhpServices = Backbone.Model.extend({
         success:function(data){
         	console.log(data);
         	if(data.value === true){
-        		that.getActivities(false, data.activity_id)
+        		Backbone.trigger('activityCreated', data.activity_id);
         	}else{
 
         	}
+        },
+        error: function(){
+        	alert('errr');
         }
     });
 	},
@@ -2357,9 +2715,9 @@ appData.services.PhpServices = Backbone.Model.extend({
 						appData.models.userModel.set('name', data.name);
 						appData.models.userModel.set('avatar', data.avatar);
 						appData.models.userModel.set('user_id', data.value);
-						appData.models.userModel.attributes.avatar_strength = data.strength_score;
-						appData.models.userModel.attributes.avatar_stamina = data.stamina_score;
-						appData.models.userModel.attributes.avatar_equipment = data.equipment_score;
+						appData.models.userModel.attributes.strength_score = data.strength_score;
+						appData.models.userModel.attributes.stamina_score = data.stamina_score;
+						appData.models.userModel.attributes.equipment_score = data.equipment_score;
 
 						appData.settings.userLoggedIn = true;
 						appData.events.userLoggedInEvent.trigger("userLoggedInHandler");
@@ -2403,33 +2761,33 @@ appData.services.PhpServices = Backbone.Model.extend({
 		});
   	},
 
-		getMyActivities: function(){
-			$.ajax({
-			url:appData.settings.servicePath + appData.settings.getMyActivities,
-			type:'POST',
-			dataType:'json',
-			data: "user_id="+appData.models.userModel.attributes.user_id,
-			success:function(data){
-				console.log(data);
+	getMyActivities: function(){
+		$.ajax({
+		url:appData.settings.servicePath + appData.settings.getMyActivities,
+		type:'POST',
+		dataType:'json',
+		data: "user_id="+appData.models.userModel.attributes.user_id,
+		success:function(data){
+			console.log(data);
 
-				appData.collections.myActivities = new ActivitiesCollection(data);
-				Backbone.trigger('myActivitiesLoadedHandler');
-			}
-		});
-		},
+			appData.collections.myActivities = new ActivitiesCollection(data);
+			Backbone.trigger('myActivitiesLoadedHandler');
+		}
+	});
+	},
 
-		getMyCreatedActivities: function(){
-			$.ajax({
-			url:appData.settings.servicePath + appData.settings.getMyActivitiesService,
-			type:'POST',
-			dataType:'json',
-			data: "user_id="+appData.models.userModel.attributes.user_id,
-			success:function(data){
-				appData.collections.myActivities = new ActivitiesCollection(data);
-				Backbone.trigger('myActivitiesLoadedHandler');
-			}
-		});
-		},
+	getMyCreatedActivities: function(){
+		$.ajax({
+		url:appData.settings.servicePath + appData.settings.getMyActivitiesService,
+		type:'POST',
+		dataType:'json',
+		data: "user_id="+appData.models.userModel.attributes.user_id,
+		success:function(data){
+			appData.collections.myActivities = new ActivitiesCollection(data);
+			Backbone.trigger('myActivitiesLoadedHandler');
+		}
+	});
+	},
 
   	getMedia: function(activityModel){
   		$.ajax({
@@ -2493,11 +2851,12 @@ appData.services.PhpServices = Backbone.Model.extend({
   	getChallenges: function(){
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.getChallengesService,
-			type:'GET',
+			type:'POST',
 			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
 			success:function(data){
 				appData.collections.challenges = new ChallengesCollection(data);
-         		appData.events.getChallengesSuccesEvent.trigger("challengesLoadedHandler");
+         		Backbone.trigger('getChallengesHandler');
 			}
 		});
   	},
@@ -2515,8 +2874,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	getActivityUsers: function(activityModel){
-
-
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.getActivityUserService,
 			type:'POST',
@@ -2532,7 +2889,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	setGoingToActivity: function(activity_id, going){
-
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.setGoingToActivityService,
 			type:'POST',
@@ -2603,7 +2959,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	addLocation: function(location, coordinates, description){
-
 		$.ajax({
 			url:appData.settings.servicePath + appData.settings.addLocationService,
 			type:'POST',
@@ -2670,6 +3025,146 @@ appData.services.PhpServices = Backbone.Model.extend({
 		}); 
   	},
 
+  	updateAvatar: function(){
+  	  	$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&strength_score="+appData.models.userModel.attributes.avatar_strength+"&stamina_score="+appData.models.userModel.attributes.avatar_stamina+"&equipment_score="+appData.models.userModel.attributes.avatar_equipment,
+			success:function(data){
+				Backbone.trigger('updateAvatarCompleteHandler');
+			}
+		}); 	
+  	},
+
+  	getMyChallengesHandler: function(){
+  	  	$.ajax({
+			url:appData.settings.servicePath + appData.settings.getMyChallengesService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.models.userModel.attributes.myChallenges = new ChallengesCollection(data);
+				Backbone.trigger('getMyChallengesHandler');
+			}
+		}); 	
+  	},
+
+  	joinChallenge: function(challenge_id){
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.joinChallengeService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&challenge_id="+challenge_id,
+			success:function(data){
+				Backbone.trigger('joinedChallengeHandler');
+			}, error: function(){
+				alert('errro');
+			}
+		}); 
+  	},
+
+  	getMyBadges: function(){
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.getBadgesService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.models.userModel.attributes.myBadges = new ChallengesCollection(data);
+				Backbone.trigger('getMyBadgesHandler');
+			}
+  		});
+  	},
+
+  	updateChallenge: function(challenge_id, status){
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateChallengeService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&challenge_id="+challenge_id+"&status="+status,
+			success:function(data){
+				Backbone.trigger('updateChallengeScore');
+			}
+  		});
+  	},
+
+  	addSport: function(sport_title, description, icon){
+
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.addSportService,
+			type:'POST',
+			dataType:'json',
+			data: "sport_title="+sport_title+"&description="+description+"&icon="+icon,
+			success:function(data){
+				Backbone.trigger('addedSportHandler', data);
+			}
+  		});
+  	},
+
+  	getFriends: function(sport_title, description, icon){
+
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.getFriendsService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				console.log(data);
+
+				appData.models.userModel.attributes.myFriends = new UsersCollection(data);
+				Backbone.trigger('getFriendsHandler');
+			}, error:function(){
+				alert('errr');
+			}
+  		});
+  	},
+
+	addFriend: function(friend_id, friend_from_id){
+
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.addFriendService,
+			type:'POST',
+			dataType:'json',
+			data: "friend_id="+friend_id+"&friend_from_id="+friend_from_id,
+			success:function(data){
+				Backbone.trigger('addedFriendHandler');
+			}
+  		});
+    },
+
+    getMyInvitations: function(){
+
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.getMyInvitationsService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.collections.myInvitations = new ActivitiesCollection(data);
+				Backbone.trigger('getInvitationsHandler');
+			}
+  		});
+    },
+
+    inviteFriends: function(friends, activity_id){
+
+    	var counter = 0;
+    	friends.each(function(friendModel){
+    		$.ajax({
+				url:appData.settings.servicePath + appData.settings.inviteFriendsService,
+				type:'POST',
+				dataType:'json',
+				data: "user_id="+friendModel.attributes.user_id+"&activty_id="+activity_id,
+				success:function(data){
+					counter++;
+					if(counter == friends.length){
+						Backbone.trigger('friendsInvitedHandler');
+					}
+				}
+  			});	
+    	});
+    }
 
 });
 

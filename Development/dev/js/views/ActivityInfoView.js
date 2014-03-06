@@ -37,6 +37,7 @@ appData.views.ActivityInfoView = Backbone.View.extend({
 
         appData.models.activityModel.userData = new UsersCollection(data);
 
+
         // 1 set toggle switch for going
         var goingTo = appData.models.activityModel.userData.where({user_id:appData.models.userModel.attributes.user_id.toString()});
             goingTo = goingTo[0];
@@ -45,6 +46,10 @@ appData.views.ActivityInfoView = Backbone.View.extend({
             $('#praktischContent .radio-list label').removeClass('checked');
             $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).parent().addClass('checked');
             $("#going-" + goingTo.attributes.going, appData.settings.currentModuleHTML).prop('checked', true);
+        }else{
+            $('#praktischContent .radio-list label').removeClass('checked');
+            $("#going-0", appData.settings.currentModuleHTML).parent().addClass('checked');
+            $("#going-0", appData.settings.currentModuleHTML).prop('checked', true);
         }
 
         // 2 show friends that are going

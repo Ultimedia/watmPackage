@@ -239,9 +239,11 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getSports.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUser.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserActivities.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserChallenges.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserFavouriteSports.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserFromFacebookID.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUsers.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/setGoingToActivity.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/updateAvatar.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/uploadService.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/ant-build/AndroidManifest.xml \

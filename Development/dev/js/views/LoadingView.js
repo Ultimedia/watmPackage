@@ -3,15 +3,17 @@ appData.views.LoadingView = Backbone.View.extend({
     initialize: function () {
         appData.events.getActivitiesSuccesEvent.bind("activitiesLoadedHandler", this.activitiesLoadedHandler);
         appData.events.getSportsSuccesEvent.bind("sportsLoadedHandler", this.sportsLoadedHandlers);
-        appData.events.getChallengesSuccesEvent.bind("challengesLoadedHandler", this.challengesLoadedHandler);
         appData.events.getUsersSuccesEvent.bind("usersLoadedHandler", this.usersLoadedHandler)
         appData.events.getBuurtenEvent.bind("buurtenLoadedHandler", this.buurtenLoadedHandler);
         appData.events.getLocationsSuccesEvent.bind("getLocationsSuccesHandler", this.getLocationsSuccesHandler);
+        Backbone.on('getChallengesHandler', this.getChallengesHandler)
         Backbone.on('myPlannedActivitiesLoadedHandler', this.getMyPlannedActivitiesLoadedHandler);
         Backbone.on('myActivitiesLoadedHandler', this.getMyActivitiesLoadedHandler);
         Backbone.on('getFavouriteSportsHandler', this.getFavouriteSportsHandler)
         Backbone.on('getMyFavouriteSportsHandler', this.getMyFavouriteSportsHandler)
-
+        Backbone.on('getMyChallengesHandler', this.getMyChallengesHandler);
+        Backbone.on('getMyBadgesHandler', this.getMyBadgesHandler);
+        Backbone.on('getFriendsHandler', this.getMyFriendsHandler)
     },
 
     render: function() {
@@ -27,10 +29,12 @@ appData.views.LoadingView = Backbone.View.extend({
     },
 
     sportsLoadedHandlers: function(){
+        
         appData.services.phpService.getChallenges();
     },
 
-    challengesLoadedHandler: function(){
+    getChallengesHandler: function(){
+        Backbone.off('getChallengesHandler');
         appData.services.phpService.getUsers();
     },
 
@@ -62,18 +66,29 @@ appData.views.LoadingView = Backbone.View.extend({
     },
 
     getMyFavouriteSportsHandler: function(){
+        appData.services.phpService.getMyChallengesHandler();
         Backbone.off('getMyFavouriteSportsHandler');
-        appData.settings.dataLoaded = true;
+    },
 
-        console.log(appData.collections);
-        console.log(appData.models.userModel);
+    getMyChallengesHandler: function(){
+        Backbone.off('getMyChallengesHandler');
+        appData.services.phpService.getMyBadges();
+    },
+
+    getMyBadgesHandler: function(){
+        Backbone.off('getMyBadgesHandler');
+        appData.services.phpService.getFriends();
+    },
+
+    getMyFriendsHandler: function(){
+        Backbone.off('getFriendsHandler');
+        appData.settings.dataLoaded = true;
 
         if(appData.collections.myFavouriteSports.length > 0){
             appData.router.navigate('dashboard', true);
         }else{
             appData.router.navigate('sportselector', true);
         }
-
-
     }
+
 });

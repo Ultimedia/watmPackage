@@ -1,8 +1,10 @@
 <?php
 	require_once("core_functions.php");
 
+	$user_id = $_POST["user_id"];
+
 	$dbc = getDBConnection();		
-	$sql = "SELECT * FROM watm_challenges";
+	$sql = "SELECT * FROM watm_challenges a WHERE NOT EXISTS (SELECT * FROM watm_user_challenges h WHERE h.challenge_id = a.challenge_id AND h.user_id =" . $user_id . ")";
 
 	$result = $dbc->query($sql);
 	$challenges = array();

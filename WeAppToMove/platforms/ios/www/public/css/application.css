@@ -64,7 +64,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* apply a natural box layout model to all elements */
-/* line 5, ../../dev/sass/application.scss */
+/* line 5, ../../../../Development/dev/sass/application.scss */
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -73,7 +73,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
-/* line 10, ../../dev/sass/application.scss */
+/* line 10, ../../../../Development/dev/sass/application.scss */
 body {
   -webkit-touch-callout: none;
   /* prevent callout to copy image, etc when tap to hold */
@@ -95,7 +95,7 @@ body {
   width: 100%;
 }
 
-/* line 35, ../../dev/sass/application.scss */
+/* line 35, ../../../../Development/dev/sass/application.scss */
 form .cl-btn {
   width: 100% !important;
 }
@@ -103,7 +103,7 @@ form .cl-btn {
 /**
  * Styles to fix the new iOS 7 transparent status bar
  */
-/* line 43, ../../dev/sass/application.scss */
+/* line 43, ../../../../Development/dev/sass/application.scss */
 #ios7statusbar {
   width: 100%;
   height: 20px;
@@ -112,25 +112,25 @@ form .cl-btn {
   z-index: 10000;
 }
 
-/* line 50, ../../dev/sass/application.scss */
+/* line 50, ../../../../Development/dev/sass/application.scss */
 .ios7 .ui-page, .ios7 .ui-header, .ios7 .ui-pane {
   margin-top: 20px;
 }
 
-/* line 55, ../../dev/sass/application.scss */
+/* line 55, ../../../../Development/dev/sass/application.scss */
 #activity-header {
   height: 200px;
   width: 100%;
   position: relative;
 }
 
-/* line 61, ../../dev/sass/application.scss */
+/* line 61, ../../../../Development/dev/sass/application.scss */
 #activityMap, #map {
   height: 200px;
   width: 100%;
 }
 
-/* line 66, ../../dev/sass/application.scss */
+/* line 66, ../../../../Development/dev/sass/application.scss */
 #activityInfo {
   height: 40px;
   width: 100%;
@@ -141,29 +141,29 @@ form .cl-btn {
   padding: 0 5px;
 }
 
-/* line 76, ../../dev/sass/application.scss */
+/* line 76, ../../../../Development/dev/sass/application.scss */
 #activityInfo span {
   float: left;
 }
 
-/* line 80, ../../dev/sass/application.scss */
+/* line 80, ../../../../Development/dev/sass/application.scss */
 #activityInfo #navigateButton {
   padding: 10px;
   margin-top: 2px;
 }
 
-/* line 85, ../../dev/sass/application.scss */
+/* line 85, ../../../../Development/dev/sass/application.scss */
 #activityTable .cl-table-cell h3, #profileTable .cl-table-cell h3 {
   margin: 5px 0;
 }
 
-/* line 89, ../../dev/sass/application.scss */
+/* line 89, ../../../../Development/dev/sass/application.scss */
 #activityTable .cl-table-cell ul, #profileTable .cl-table-cell ul {
   padding-left: 0;
   margin: 0;
 }
 
-/* line 94, ../../dev/sass/application.scss */
+/* line 94, ../../../../Development/dev/sass/application.scss */
 #activityTable .cl-table-cell ul li, #profileTable .cl-table-cell ul li {
   display: inline-block;
   background: #bfbfbf;
@@ -172,29 +172,29 @@ form .cl-btn {
   margin-bottom: 1px;
 }
 
-/* line 102, ../../dev/sass/application.scss */
+/* line 102, ../../../../Development/dev/sass/application.scss */
 #activityTable .cl-table-cell {
   margin-top: 0px;
 }
 
-/* line 106, ../../dev/sass/application.scss */
+/* line 106, ../../../../Development/dev/sass/application.scss */
 #activityTable .cl-table-cell ul li .entypo-icon, #profileTable .cl-table-cell ul li .entypo-icon {
   font-size: 22px;
 }
 
-/* line 110, ../../dev/sass/application.scss */
+/* line 110, ../../../../Development/dev/sass/application.scss */
 #sortBar p, #searchBar p {
   float: left;
 }
 
-/* line 114, ../../dev/sass/application.scss */
+/* line 114, ../../../../Development/dev/sass/application.scss */
 #searchBar {
   padding: 10px;
   height: auto;
   background: #757575 !important;
 }
 
-/* line 119, ../../dev/sass/application.scss */
+/* line 119, ../../../../Development/dev/sass/application.scss */
 #searchForm input[type=search] {
   border: 0;
   width: 100%;
@@ -206,13 +206,13 @@ form .cl-btn {
   height: 2.5em;
 }
 
-/* line 131, ../../dev/sass/application.scss */
+/* line 131, ../../../../Development/dev/sass/application.scss */
 #sortBar select {
   width: 170px;
   margin-top: 12px;
 }
 
-/* line 136, ../../dev/sass/application.scss */
+/* line 136, ../../../../Development/dev/sass/application.scss */
 .entypo-icon {
   font-size: 3em;
   font-family: 'EntypoRegular';
@@ -220,51 +220,51 @@ form .cl-btn {
 }
 
 /* ios specific */
-/* line 144, ../../dev/sass/application.scss */
+/* line 144, ../../../../Development/dev/sass/application.scss */
 .cl-bar-title {
   height: 68px;
 }
 
-/* line 149, ../../dev/sass/application.scss */
+/* line 149, ../../../../Development/dev/sass/application.scss */
 .cl-bar-title .cl-title, .cl-modal .cl-modal-bar-title .cl-title, .cl-modal .cl-modal-bar-title .cl-modal-title {
   line-height: 80px;
 }
 
-/* line 153, ../../dev/sass/application.scss */
+/* line 153, ../../../../Development/dev/sass/application.scss */
 .cl-bar-title a {
   display: inline-block;
 }
 
-/* line 157, ../../dev/sass/application.scss */
+/* line 157, ../../../../Development/dev/sass/application.scss */
 .cl-bar-title > .cl-title + .btn, .cl-modal .cl-modal-bar-title > .cl-title + .btn, .cl-modal .cl-modal-bar-title .cl-bar-title > .cl-modal-title + .btn, .cl-modal .cl-modal-bar-title > .cl-modal-title + .btn, .cl-bar-title > .cl-btn:last-child, .cl-modal .cl-modal-bar-title > .cl-btn:last-child, .cl-bar-footer > .cl-title + .btn, .cl-modal .cl-modal-bar-title .cl-bar-footer > .cl-modal-title + .btn, .cl-bar-footer > .cl-btn:last-child, .cl-bar > .cl-title + .btn, .cl-modal .cl-modal-bar-title .cl-bar > .cl-modal-title + .btn, .cl-bar > .cl-btn:last-child {
   top: 20px;
 }
 
-/* line 161, ../../dev/sass/application.scss */
+/* line 161, ../../../../Development/dev/sass/application.scss */
 .cl-bar-title > .cl-btn, .cl-modal .cl-modal-bar-title > .cl-btn, .cl-bar-footer > .cl-btn, .cl-bar > .cl-btn {
   top: 20px;
 }
 
-/* line 167, ../../dev/sass/application.scss */
+/* line 167, ../../../../Development/dev/sass/application.scss */
 #navigateButton {
   display: inline-block;
   background: #fff;
   float: right;
 }
 
-/* line 173, ../../dev/sass/application.scss */
+/* line 173, ../../../../Development/dev/sass/application.scss */
 #activityContent {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* line 178, ../../dev/sass/application.scss */
+/* line 178, ../../../../Development/dev/sass/application.scss */
 #activityContent h4 {
   display: inline-block;
   width: 80px;
 }
 
-/* line 187, ../../dev/sass/application.scss */
+/* line 187, ../../../../Development/dev/sass/application.scss */
 #createActivity .cl-btn-toolbar .cl-btn,
 #activityDetail .cl-btn-toolbar .cl-btn,
 #activityDetail .cl-btn-toolbar.flex .cl-btn:nth-child(2):not(:last-child),
@@ -276,18 +276,18 @@ form .cl-btn {
   margin: 0;
 }
 
-/* line 194, ../../dev/sass/application.scss */
+/* line 194, ../../../../Development/dev/sass/application.scss */
 #activityDetail .cl-btn-toolbar .cl-btn.active, #navigationTabs .cl-btn-toolbar .cl-btn.active {
   background: #eeeeee;
   color: #000000;
 }
 
-/* line 199, ../../dev/sass/application.scss */
+/* line 199, ../../../../Development/dev/sass/application.scss */
 #activityDetail .cl-btn-toolbar.flex {
   padding: 0;
 }
 
-/* line 203, ../../dev/sass/application.scss */
+/* line 203, ../../../../Development/dev/sass/application.scss */
 #activityDetail hr {
   background-color: #fff;
   border: #000 1px dotted;
@@ -295,71 +295,71 @@ form .cl-btn {
   color: #fff;
 }
 
-/* line 210, ../../dev/sass/application.scss */
+/* line 210, ../../../../Development/dev/sass/application.scss */
 #praktischContent ul {
   display: inline-block;
   padding-left: 0;
 }
 
-/* line 215, ../../dev/sass/application.scss */
+/* line 215, ../../../../Development/dev/sass/application.scss */
 #praktischContent ul li {
   display: inline-block;
 }
 
-/* line 219, ../../dev/sass/application.scss */
+/* line 219, ../../../../Development/dev/sass/application.scss */
 #praktischContent ul li {
   border: 1px solid #5b5b5b;
   padding: 5px;
 }
 
-/* line 224, ../../dev/sass/application.scss */
+/* line 224, ../../../../Development/dev/sass/application.scss */
 #activityDetailTabs {
   margin-bottom: 10px;
 }
 
-/* line 228, ../../dev/sass/application.scss */
+/* line 228, ../../../../Development/dev/sass/application.scss */
 #availibleBar .cl-btn {
   background: #c68436;
 }
 
-/* line 232, ../../dev/sass/application.scss */
+/* line 232, ../../../../Development/dev/sass/application.scss */
 #availibleBar .cl-btn:first-child {
   background: #af7633;
 }
 
-/* line 236, ../../dev/sass/application.scss */
+/* line 236, ../../../../Development/dev/sass/application.scss */
 #createActivityTabs, #navigationTabs {
   margin: 0;
   padding: 0;
 }
 
-/* line 241, ../../dev/sass/application.scss */
+/* line 241, ../../../../Development/dev/sass/application.scss */
 #createActivityTabs .active, #profileTabs .active, #navigationTabs .active {
   background: #eeeeee;
   color: #000000;
 }
 
-/* line 246, ../../dev/sass/application.scss */
+/* line 246, ../../../../Development/dev/sass/application.scss */
 #profile .cl-btn-toolbar.flex {
   padding: 0;
 }
 
-/* line 250, ../../dev/sass/application.scss */
+/* line 250, ../../../../Development/dev/sass/application.scss */
 #home .cl-content {
   padding-top: 10px;
 }
 
-/* line 254, ../../dev/sass/application.scss */
+/* line 254, ../../../../Development/dev/sass/application.scss */
 #addMediaButton {
   width: 100%;
 }
 
-/* line 258, ../../dev/sass/application.scss */
+/* line 258, ../../../../Development/dev/sass/application.scss */
 #smallImage {
   max-width: 100%;
 }
 
-/* line 262, ../../dev/sass/application.scss */
+/* line 262, ../../../../Development/dev/sass/application.scss */
 #map_canvas, #googleMap {
   width: 100%;
   height: 100%;
@@ -367,7 +367,7 @@ form .cl-btn {
 }
 
 /* Create new user page */
-/* line 273, ../../dev/sass/application.scss */
+/* line 273, ../../../../Development/dev/sass/application.scss */
 #createUserForm label.error, #loginForm label.error, #watForm label.error {
   background: red;
   display: block;
@@ -377,13 +377,13 @@ form .cl-btn {
   color: #fff;
 }
 
-/* line 282, ../../dev/sass/application.scss */
+/* line 282, ../../../../Development/dev/sass/application.scss */
 #createUserForm input.error, #loginForm input.error {
   margin-bottom: 0;
 }
 
 /* Login page */
-/* line 288, ../../dev/sass/application.scss */
+/* line 288, ../../../../Development/dev/sass/application.scss */
 .error-box {
   background: red;
   display: block;
@@ -393,17 +393,17 @@ form .cl-btn {
   color: #fff;
 }
 
-/* line 297, ../../dev/sass/application.scss */
+/* line 297, ../../../../Development/dev/sass/application.scss */
 .error-box.hide {
   display: none;
 }
 
-/* line 300, ../../dev/sass/application.scss */
+/* line 300, ../../../../Development/dev/sass/application.scss */
 .error-box.show {
   display: block;
 }
 
-/* line 305, ../../dev/sass/application.scss */
+/* line 305, ../../../../Development/dev/sass/application.scss */
 #FBloginButton {
   margin-bottom: 10px;
 }
@@ -411,7 +411,7 @@ form .cl-btn {
 /**
 * Pageslider
 */
-/* line 312, ../../dev/sass/application.scss */
+/* line 312, ../../../../Development/dev/sass/application.scss */
 #container {
   position: absolute;
   width: 100%;
@@ -419,7 +419,7 @@ form .cl-btn {
   overflow: hidden;
 }
 
-/* line 319, ../../dev/sass/application.scss */
+/* line 319, ../../../../Development/dev/sass/application.scss */
 .page {
   position: absolute;
   top: 0;
@@ -430,25 +430,25 @@ form .cl-btn {
   transform: translate3d(0, 0, 0);
 }
 
-/* line 329, ../../dev/sass/application.scss */
+/* line 329, ../../../../Development/dev/sass/application.scss */
 .page.page-left {
   -webkit-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0);
 }
 
-/* line 334, ../../dev/sass/application.scss */
+/* line 334, ../../../../Development/dev/sass/application.scss */
 .page.page-center {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
-/* line 339, ../../dev/sass/application.scss */
+/* line 339, ../../../../Development/dev/sass/application.scss */
 .page.page-right {
   -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
 }
 
-/* line 344, ../../dev/sass/application.scss */
+/* line 344, ../../../../Development/dev/sass/application.scss */
 .page.transition {
   -webkit-transition-duration: .25s;
   transition-duration: .25s;
@@ -457,7 +457,7 @@ form .cl-btn {
 /**
 * Backbone autocomplete
 */
-/* line 353, ../../dev/sass/application.scss */
+/* line 353, ../../../../Development/dev/sass/application.scss */
 ul.autocomplete {
   display: none;
   position: absolute;
@@ -468,26 +468,26 @@ ul.autocomplete {
   z-index: 1000;
 }
 
-/* line 363, ../../dev/sass/application.scss */
+/* line 363, ../../../../Development/dev/sass/application.scss */
 ul.autocomplete li {
   list-style: none;
   margin: 0;
   padding: 5px 7px;
 }
 
-/* line 369, ../../dev/sass/application.scss */
+/* line 369, ../../../../Development/dev/sass/application.scss */
 ul.autocomplete li.active, ul.autocomplete li:hover {
   cursor: pointer;
   background-color: #d3d3d3;
 }
 
-/* line 374, ../../dev/sass/application.scss */
+/* line 374, ../../../../Development/dev/sass/application.scss */
 ul.autocomplete li a {
   color: #3d3d3d;
   text-decoration: none;
 }
 
-/* line 381, ../../dev/sass/application.scss */
+/* line 381, ../../../../Development/dev/sass/application.scss */
 #loading {
   background: #258dc8;
   /* Old browsers */
@@ -508,7 +508,7 @@ ul.autocomplete li a {
   display: table;
 }
 
-/* line 393, ../../dev/sass/application.scss */
+/* line 393, ../../../../Development/dev/sass/application.scss */
 #loading h2 {
   display: table-cell;
   text-align: center;
@@ -518,56 +518,56 @@ ul.autocomplete li a {
   font-size: 2em;
 }
 
-/* line 402, ../../dev/sass/application.scss */
+/* line 402, ../../../../Development/dev/sass/application.scss */
 #loading h2 small {
   font-size: 0.6em;
 }
 
-/* line 406, ../../dev/sass/application.scss */
+/* line 406, ../../../../Development/dev/sass/application.scss */
 .align-center {
   text-align: center;
 }
 
-/* line 410, ../../dev/sass/application.scss */
+/* line 410, ../../../../Development/dev/sass/application.scss */
 .cl-message {
   padding: 10px;
   background-color: #c3c3c3;
 }
 
-/* line 416, ../../dev/sass/application.scss */
+/* line 416, ../../../../Development/dev/sass/application.scss */
 .field > span {
   display: block;
   overflow: hidden;
   padding-right: 10px;
 }
 
-/* line 421, ../../dev/sass/application.scss */
+/* line 421, ../../../../Development/dev/sass/application.scss */
 .field input[type=text] {
   width: 100%;
 }
 
-/* line 424, ../../dev/sass/application.scss */
+/* line 424, ../../../../Development/dev/sass/application.scss */
 .field input[type=button] {
   float: right;
 }
 
-/* line 428, ../../dev/sass/application.scss */
+/* line 428, ../../../../Development/dev/sass/application.scss */
 .message {
   margin: 0 0 15px 0;
 }
-/* line 432, ../../dev/sass/application.scss */
+/* line 432, ../../../../Development/dev/sass/application.scss */
 .message .messageHeader {
   display: block;
 }
-/* line 436, ../../dev/sass/application.scss */
+/* line 436, ../../../../Development/dev/sass/application.scss */
 .message .messageHeader img, .message .messageHeader h3 {
   float: left;
 }
-/* line 440, ../../dev/sass/application.scss */
+/* line 440, ../../../../Development/dev/sass/application.scss */
 .message .messageHeader h3 {
   font-size: 1.2em;
 }
-/* line 444, ../../dev/sass/application.scss */
+/* line 444, ../../../../Development/dev/sass/application.scss */
 .message .messageHeader img {
   width: 40px;
   height: 40px;
@@ -576,79 +576,79 @@ ul.autocomplete li a {
   margin-right: 5px;
   margin-bottom: 5px;
 }
-/* line 453, ../../dev/sass/application.scss */
+/* line 453, ../../../../Development/dev/sass/application.scss */
 .message .messageBody {
   clear: both;
 }
 
-/* line 461, ../../dev/sass/application.scss */
+/* line 461, ../../../../Development/dev/sass/application.scss */
 #challengesList .cl-table-cell {
   padding: 10px;
 }
-/* line 465, ../../dev/sass/application.scss */
+/* line 465, ../../../../Development/dev/sass/application.scss */
 #challengesList h3 {
   font-size: 1.2em;
 }
-/* line 469, ../../dev/sass/application.scss */
+/* line 469, ../../../../Development/dev/sass/application.scss */
 #challengesList .badge_img {
   float: left;
 }
-/* line 473, ../../dev/sass/application.scss */
+/* line 473, ../../../../Development/dev/sass/application.scss */
 #challengesList .status {
   display: block;
 }
 
-/* line 480, ../../dev/sass/application.scss */
+/* line 480, ../../../../Development/dev/sass/application.scss */
 #friendsListView div {
   float: left;
 }
-/* line 484, ../../dev/sass/application.scss */
+/* line 484, ../../../../Development/dev/sass/application.scss */
 #friendsListView div, #friendsListView .friendsBox {
   display: inline-block;
 }
 
 /* Page specific */
-/* line 493, ../../dev/sass/application.scss */
+/* line 493, ../../../../Development/dev/sass/application.scss */
 #home .cl-bar-title {
   height: 140px;
   display: table;
 }
-/* line 498, ../../dev/sass/application.scss */
+/* line 498, ../../../../Development/dev/sass/application.scss */
 #home .cl-title {
   display: table-cell;
   vertical-align: middle;
 }
 
-/* line 506, ../../dev/sass/application.scss */
+/* line 506, ../../../../Development/dev/sass/application.scss */
 #dashboard #sortBar {
   background: #8d7069;
 }
 
-/* line 512, ../../dev/sass/application.scss */
+/* line 512, ../../../../Development/dev/sass/application.scss */
 #waarContent #map_canvas {
   height: 400px;
 }
 
-/* line 519, ../../dev/sass/application.scss */
+/* line 519, ../../../../Development/dev/sass/application.scss */
 #navigationView #map_canvas {
   height: 50%;
 }
-/* line 523, ../../dev/sass/application.scss */
+/* line 523, ../../../../Development/dev/sass/application.scss */
 #navigationView #directions {
   height: 50%;
 }
 
-/* line 528, ../../dev/sass/application.scss */
+/* line 528, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList {
   display: table;
 }
-/* line 531, ../../dev/sass/application.scss */
+/* line 531, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList div {
   float: left;
   display: table-cell;
   vertical-align: middle;
 }
-/* line 536, ../../dev/sass/application.scss */
+/* line 536, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList div a {
   min-width: 70px;
   min-height: 70px;
@@ -659,16 +659,32 @@ ul.autocomplete li a {
   text-align: center;
   font-size: 12px;
 }
-/* line 547, ../../dev/sass/application.scss */
+/* line 547, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList div a.selected {
   background: #fff;
 }
 
-/* line 554, ../../dev/sass/application.scss */
+/* line 554, ../../../../Development/dev/sass/application.scss */
 #favouriteSportsSelector #confirm {
   top: 0;
 }
-/* line 558, ../../dev/sass/application.scss */
+/* line 558, ../../../../Development/dev/sass/application.scss */
 #favouriteSportsSelector ul.autocomplete {
   position: absolute;
+}
+
+/* line 565, ../../../../Development/dev/sass/application.scss */
+#aanwezigContent div {
+  float: left;
+  margin-right: 5px;
+}
+/* line 570, ../../../../Development/dev/sass/application.scss */
+#aanwezigContent .user_avatar {
+  float: left;
+  display: inline-block;
+}
+/* line 575, ../../../../Development/dev/sass/application.scss */
+#aanwezigContent .user_avatar img {
+  min-width: 50px;
+  max-height: 50px;
 }

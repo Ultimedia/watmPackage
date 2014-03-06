@@ -16,7 +16,7 @@
 	$date = date('Y/m/d H:i:s', $date);
 
 	$dbc = getDBConnection();		
-	$sql = "INSERT INTO watm_activities (title, sport_id, description, date, time, user_id, location_id) VALUES (?,?,?,?,?,?,?)";
+	$sql = "INSERT INTO watm_activities (title, sport_id, activity_description, date, time, user_id, location_id) VALUES (?,?,?,?,?,?,?)";
 	$stmt = null;
 	
 	if($stmt = $dbc->prepare($sql)){

@@ -19,10 +19,13 @@ appData.services.PhpServices = Backbone.Model.extend({
         success:function(data){
         	console.log(data);
         	if(data.value === true){
-        		that.getActivities(false, data.activity_id)
+        		Backbone.trigger('activityCreated', data.activity_id);
         	}else{
 
         	}
+        },
+        error: function(){
+        	alert('errr');
         }
     });
 	},
@@ -80,9 +83,9 @@ appData.services.PhpServices = Backbone.Model.extend({
 						appData.models.userModel.set('name', data.name);
 						appData.models.userModel.set('avatar', data.avatar);
 						appData.models.userModel.set('user_id', data.value);
-						appData.models.userModel.attributes.avatar_strength = data.strength_score;
-						appData.models.userModel.attributes.avatar_stamina = data.stamina_score;
-						appData.models.userModel.attributes.avatar_equipment = data.equipment_score;
+						appData.models.userModel.attributes.strength_score = data.strength_score;
+						appData.models.userModel.attributes.stamina_score = data.stamina_score;
+						appData.models.userModel.attributes.equipment_score = data.equipment_score;
 
 						appData.settings.userLoggedIn = true;
 						appData.events.userLoggedInEvent.trigger("userLoggedInHandler");
@@ -126,33 +129,33 @@ appData.services.PhpServices = Backbone.Model.extend({
 		});
   	},
 
-		getMyActivities: function(){
-			$.ajax({
-			url:appData.settings.servicePath + appData.settings.getMyActivities,
-			type:'POST',
-			dataType:'json',
-			data: "user_id="+appData.models.userModel.attributes.user_id,
-			success:function(data){
-				console.log(data);
+	getMyActivities: function(){
+		$.ajax({
+		url:appData.settings.servicePath + appData.settings.getMyActivities,
+		type:'POST',
+		dataType:'json',
+		data: "user_id="+appData.models.userModel.attributes.user_id,
+		success:function(data){
+			console.log(data);
 
-				appData.collections.myActivities = new ActivitiesCollection(data);
-				Backbone.trigger('myActivitiesLoadedHandler');
-			}
-		});
-		},
+			appData.collections.myActivities = new ActivitiesCollection(data);
+			Backbone.trigger('myActivitiesLoadedHandler');
+		}
+	});
+	},
 
-		getMyCreatedActivities: function(){
-			$.ajax({
-			url:appData.settings.servicePath + appData.settings.getMyActivitiesService,
-			type:'POST',
-			dataType:'json',
-			data: "user_id="+appData.models.userModel.attributes.user_id,
-			success:function(data){
-				appData.collections.myActivities = new ActivitiesCollection(data);
-				Backbone.trigger('myActivitiesLoadedHandler');
-			}
-		});
-		},
+	getMyCreatedActivities: function(){
+		$.ajax({
+		url:appData.settings.servicePath + appData.settings.getMyActivitiesService,
+		type:'POST',
+		dataType:'json',
+		data: "user_id="+appData.models.userModel.attributes.user_id,
+		success:function(data){
+			appData.collections.myActivities = new ActivitiesCollection(data);
+			Backbone.trigger('myActivitiesLoadedHandler');
+		}
+	});
+	},
 
   	getMedia: function(activityModel){
   		$.ajax({
@@ -216,11 +219,12 @@ appData.services.PhpServices = Backbone.Model.extend({
   	getChallenges: function(){
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.getChallengesService,
-			type:'GET',
+			type:'POST',
 			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
 			success:function(data){
 				appData.collections.challenges = new ChallengesCollection(data);
-         		appData.events.getChallengesSuccesEvent.trigger("challengesLoadedHandler");
+         		Backbone.trigger('getChallengesHandler');
 			}
 		});
   	},
@@ -238,8 +242,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	getActivityUsers: function(activityModel){
-
-
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.getActivityUserService,
 			type:'POST',
@@ -255,7 +257,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	setGoingToActivity: function(activity_id, going){
-
   		$.ajax({
 			url:appData.settings.servicePath + appData.settings.setGoingToActivityService,
 			type:'POST',
@@ -326,7 +327,6 @@ appData.services.PhpServices = Backbone.Model.extend({
   	},
 
   	addLocation: function(location, coordinates, description){
-
 		$.ajax({
 			url:appData.settings.servicePath + appData.settings.addLocationService,
 			type:'POST',
@@ -393,5 +393,145 @@ appData.services.PhpServices = Backbone.Model.extend({
 		}); 
   	},
 
+  	updateAvatar: function(){
+  	  	$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&strength_score="+appData.models.userModel.attributes.avatar_strength+"&stamina_score="+appData.models.userModel.attributes.avatar_stamina+"&equipment_score="+appData.models.userModel.attributes.avatar_equipment,
+			success:function(data){
+				Backbone.trigger('updateAvatarCompleteHandler');
+			}
+		}); 	
+  	},
+
+  	getMyChallengesHandler: function(){
+  	  	$.ajax({
+			url:appData.settings.servicePath + appData.settings.getMyChallengesService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.models.userModel.attributes.myChallenges = new ChallengesCollection(data);
+				Backbone.trigger('getMyChallengesHandler');
+			}
+		}); 	
+  	},
+
+  	joinChallenge: function(challenge_id){
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.joinChallengeService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&challenge_id="+challenge_id,
+			success:function(data){
+				Backbone.trigger('joinedChallengeHandler');
+			}, error: function(){
+				alert('errro');
+			}
+		}); 
+  	},
+
+  	getMyBadges: function(){
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.getBadgesService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.models.userModel.attributes.myBadges = new ChallengesCollection(data);
+				Backbone.trigger('getMyBadgesHandler');
+			}
+  		});
+  	},
+
+  	updateChallenge: function(challenge_id, status){
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateChallengeService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&challenge_id="+challenge_id+"&status="+status,
+			success:function(data){
+				Backbone.trigger('updateChallengeScore');
+			}
+  		});
+  	},
+
+  	addSport: function(sport_title, description, icon){
+
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.addSportService,
+			type:'POST',
+			dataType:'json',
+			data: "sport_title="+sport_title+"&description="+description+"&icon="+icon,
+			success:function(data){
+				Backbone.trigger('addedSportHandler', data);
+			}
+  		});
+  	},
+
+  	getFriends: function(sport_title, description, icon){
+
+  		$.ajax({
+			url:appData.settings.servicePath + appData.settings.getFriendsService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				console.log(data);
+
+				appData.models.userModel.attributes.myFriends = new UsersCollection(data);
+				Backbone.trigger('getFriendsHandler');
+			}, error:function(){
+				alert('errr');
+			}
+  		});
+  	},
+
+	addFriend: function(friend_id, friend_from_id){
+
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.addFriendService,
+			type:'POST',
+			dataType:'json',
+			data: "friend_id="+friend_id+"&friend_from_id="+friend_from_id,
+			success:function(data){
+				Backbone.trigger('addedFriendHandler');
+			}
+  		});
+    },
+
+    getMyInvitations: function(){
+
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.getMyInvitationsService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				appData.collections.myInvitations = new ActivitiesCollection(data);
+				Backbone.trigger('getInvitationsHandler');
+			}
+  		});
+    },
+
+    inviteFriends: function(friends, activity_id){
+
+    	var counter = 0;
+    	friends.each(function(friendModel){
+    		$.ajax({
+				url:appData.settings.servicePath + appData.settings.inviteFriendsService,
+				type:'POST',
+				dataType:'json',
+				data: "user_id="+friendModel.attributes.user_id+"&activty_id="+activity_id,
+				success:function(data){
+					counter++;
+					if(counter == friends.length){
+						Backbone.trigger('friendsInvitedHandler');
+					}
+				}
+  			});	
+    	});
+    }
 
 });

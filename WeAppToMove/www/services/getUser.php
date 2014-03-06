@@ -5,7 +5,7 @@
 	$password = $_POST['password'];
 
 	$dbc = getDBConnection();		
-	$sql = "SELECT user_id, password, name, avatar, stamina_score, strength_score, equipment_score, current_location  FROM watm_users WHERE email = ?";
+	$sql = "SELECT user_id, password, name, avatar, stamina_score, strength_score, equipment_score, current_location FROM watm_users WHERE email = ?";
 	if($stmt = $dbc->prepare($sql))
 	{
 		$stmt->bind_param('s',$email);

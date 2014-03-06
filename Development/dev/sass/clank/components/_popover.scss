@@ -6,19 +6,15 @@
 .cl-popover {
   padding: 5px 0;
   background: #FFF;
-  border-radius: 8px;
+  border-radius: 3px;
   position: absolute;
-
-  width: 300px;
+  width: 90%;
+  left: 5%;
+  right: 5%;
   z-index: $cl-popover-z-index;
 
   &:after {
-    @include inline-block;
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    content: "";
+
   }
   &.align-right {
     right: 10px;
@@ -32,7 +28,6 @@
       left: 15%;
     }
   }
-  
   &.pop-from-header {
     top: 55px;
     &:after {

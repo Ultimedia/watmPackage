@@ -456,23 +456,59 @@ display:table;
 }
 
 
-#challengesList{
+#challengeView{
+  
+  .badge_img{
+    float: left;
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-    .cl-table-cell{
-      padding: 10px;
+  .cl-table-cell{
+    padding: 10px 5px;
+
+    a{
+      min-height: 20px;
+      vertical-align: center;
     }
+  }
 
-    h3{
-      font-size: 1.2em;
-    }
+  .cl-btn{
+    display: inline-block;
+    width: auto;
+    float:right;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
 
-    .badge_img{
-      float: left;
-    }
+  h3{
+    display: inline-block;
+    font-size: 1.3em;
+    margin-bottom: 5px;
+  }
 
-    .status{
+  #progressContainer{
+    width: 100%;
     display: block;
+    padding:10px 0;
+
+    progress{
+      width: 100%;
     }
+  }
+
+  #badgesOverview{
+    .cl-table-cell{
+      width: auto;
+      float: left;
+
+      .badge_img{
+        float: left;
+        display: inline-block;
+      }
+    }
+  }
 }
 
 
@@ -576,5 +612,22 @@ display:table;
       min-width: 50px;
       max-height: 50px;
     }
+  }
+}
+
+
+#myInvitationsTable{
+  
+  .cl-table-cell{
+    padding: 10px 0;
+  }
+
+  .cl-table-cell a{
+    display: inline-block;
+  }
+
+  .cl-btn-group.float{
+    display: inline-block;
+    float: right;
   }
 }

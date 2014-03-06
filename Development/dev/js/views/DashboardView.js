@@ -1,6 +1,8 @@
 appData.views.DashboardView = Backbone.View.extend({
 
     initialize: function () {
+        console.log(appData.collections);
+
         var that = this;
         this.searching = false;
      

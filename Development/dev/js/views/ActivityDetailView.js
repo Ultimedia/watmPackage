@@ -26,6 +26,10 @@ appData.views.ActivityDetailView = Backbone.View.extend({
       return this; 
     }, 
 
+    shareButtonHandler: function(){
+        //appData.services.phpService.updateChallenge(3, 40);
+    },
+
     addMap: function(){
         appData.settings.mapAdded = true;
         
@@ -55,7 +59,13 @@ appData.views.ActivityDetailView = Backbone.View.extend({
     events: {
       "click #activityDetailTabs .cl-btn": "activeDetailTabsHandler",
       "click #navigateButton": "navigateClickHandler",
-      "click #backButton": "backHandler"
+      "click #backButton": "backHandler",
+      "click #shareButton": "sharePopopverClickHandler",
+      "click #popover-close": "sharePopopverClickHandler"
+    },
+
+    sharePopopverClickHandler: function(e){
+        $('#popover', appData.settings.currentPageHTML).toggleClass('hide');
     },
 
     backHandler: function(){
