@@ -1624,6 +1624,8 @@ appData.views.HomeView = Backbone.View.extend({
                 // First lets get the location
                 appData.services.utilService.getLocationService("login");
             }else{
+                console.log("to s")
+
                 appData.services.facebookService.facebookUserToSQL();
             }
 
@@ -2357,16 +2359,19 @@ appData.views.SettingsView = Backbone.View.extend({
     render: function () {
     	console.log(appData.models.userModel.attributes);
 
-    	
-
-        this.$el.html(this.template({user: appData.models.userModel.attributes}));
-        appData.settings.currentPageHTML = this.$el;
-        return this;
+      this.$el.html(this.template({user: appData.models.userModel.attributes}));
+      appData.settings.currentPageHTML = this.$el;
+      return this;
     },
 
     events: {
-    	"click #changeAvatar": "changeAvatarHandler"
+    	"click #changeAvatar": "changeAvatarHandler",
+      "click #signOutButton": "signOutHandler"
     },
+
+    signOutHandler: function(){
+      window.location.hash = "#";
+    },   
 
     avatarUpdatedHandler: function(){
     	Backbone.off('updateUserAvatar');
@@ -2694,6 +2699,11 @@ appData.services.FacebookServices = Backbone.Model.extend({
 				appData.models.userModel.attributes.strength_score = data.strength_score;
 				appData.models.userModel.attributes.stamina_score = data.stamina_score;
 				appData.models.userModel.attributes.equipment_score = data.equipment_score;
+
+				if(data.avatar !== ""){
+					appData.models.userModel.attributes.avatar = data.avatar;
+					console.log('replaced avatar');
+				}
 				appData.events.getUserFromFacebookIDEvent.trigger("facebookGetIDHandler", data);
 			}
 		});
@@ -2723,7 +2733,7 @@ appData.services.FacebookServices = Backbone.Model.extend({
 			appData.models.userModel.attributes.facebook_id = response.id;
 			
 			FB.api("/me/picture", function(response) {
-				appData.models.userModel.attributes.avatar = response.data.url;
+				appData.models.userModel.attributes.facebook_avatar = response.data.url;
 				appData.events.facebookGetProfileDataEvent.trigger("facebookProfileDataHandler");
 			});
 

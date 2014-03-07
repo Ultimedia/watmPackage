@@ -3593,6 +3593,12 @@ ul.autocomplete li a {
   background: #f2f2f2;
 }
 
+/* line 647, ../../../../Development/dev/sass/application.scss */
+#userAvatar, .friend-avatar {
+  max-width: 160px;
+  max-height: 160px;
+}
+
 @font-face {
   font-family: 'EntypoRegular';
   src: url("../../common/fonts/entypo.eot");

@@ -8,16 +8,19 @@ appData.views.SettingsView = Backbone.View.extend({
     render: function () {
     	console.log(appData.models.userModel.attributes);
 
-    	
-
-        this.$el.html(this.template({user: appData.models.userModel.attributes}));
-        appData.settings.currentPageHTML = this.$el;
-        return this;
+      this.$el.html(this.template({user: appData.models.userModel.attributes}));
+      appData.settings.currentPageHTML = this.$el;
+      return this;
     },
 
     events: {
-    	"click #changeAvatar": "changeAvatarHandler"
+    	"click #changeAvatar": "changeAvatarHandler",
+      "click #signOutButton": "signOutHandler"
     },
+
+    signOutHandler: function(){
+      window.location.hash = "#";
+    },   
 
     avatarUpdatedHandler: function(){
     	Backbone.off('updateUserAvatar');

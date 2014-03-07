@@ -65,6 +65,11 @@ appData.services.FacebookServices = Backbone.Model.extend({
 				appData.models.userModel.attributes.strength_score = data.strength_score;
 				appData.models.userModel.attributes.stamina_score = data.stamina_score;
 				appData.models.userModel.attributes.equipment_score = data.equipment_score;
+
+				if(data.avatar !== ""){
+					appData.models.userModel.attributes.avatar = data.avatar;
+					console.log('replaced avatar');
+				}
 				appData.events.getUserFromFacebookIDEvent.trigger("facebookGetIDHandler", data);
 			}
 		});
@@ -94,7 +99,7 @@ appData.services.FacebookServices = Backbone.Model.extend({
 			appData.models.userModel.attributes.facebook_id = response.id;
 			
 			FB.api("/me/picture", function(response) {
-				appData.models.userModel.attributes.avatar = response.data.url;
+				appData.models.userModel.attributes.facebook_avatar = response.data.url;
 				appData.events.facebookGetProfileDataEvent.trigger("facebookProfileDataHandler");
 			});
 

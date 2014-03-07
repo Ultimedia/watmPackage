@@ -57,6 +57,8 @@ appData.views.HomeView = Backbone.View.extend({
                 // First lets get the location
                 appData.services.utilService.getLocationService("login");
             }else{
+                console.log("to s")
+
                 appData.services.facebookService.facebookUserToSQL();
             }
 
