@@ -40,20 +40,23 @@ appData.views.ActivityDetailView = Backbone.View.extend({
             disableDefaultUI: true
         }
         var map = new google.maps.Map($('#activityMap',appData.settings.currentPageHTML)[0], mapOptions);
-        var coordinates = this.model.attributes.coordinates.split(',');
         
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(coordinates[0], coordinates[1]),
-          map:  map,
-          title: 'Huidige locatie'
-        });
+        var coordinates;
+        if(this.model.attributes.coordinates){
+            coordinates =  this.model.attributes.coordinates.split(',');
 
-        // resize and relocate map
-        google.maps.event.addListenerOnce(map, 'idle', function() {
-          google.maps.event.trigger(map, 'resize');
-          map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
-        });
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(coordinates[0], coordinates[1]),
+            map:  map,
+            title: 'Huidige locatie'
+          });
 
+          // resize and relocate map
+          google.maps.event.addListenerOnce(map, 'idle', function() {
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
+          });
+        }
     },
 
     events: {

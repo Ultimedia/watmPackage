@@ -532,6 +532,22 @@ appData.services.PhpServices = Backbone.Model.extend({
 				}
   			});	
     	});
+    },
+
+	handleInvitations: function(invitation_id, accepted, activity_id){
+
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.handleInvitationsService,
+			type:'POST',
+			dataType:'json',
+			data: "invitation_id="+invitation_id+"&accepted="+accepted+"&activity_id="+activity_id+"&user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				console.log("dataaaaaa");
+				Backbone.trigger('acceptInviteHandler');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
     }
 
 });

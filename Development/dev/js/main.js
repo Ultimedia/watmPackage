@@ -58,7 +58,10 @@ appData.settings.getFriendsService = "getMyFriends.php";
 appData.settings.addFriendService = "addFriend.php";
 appData.settings.getMyInvitationsService = "getMyInvitations.php";
 appData.settings.inviteFriendsService = "inviteFriends.php";
+appData.settings.handleInvitationsService = "handleInvitation.php";
 
+
+appData.settings.defaultLocation = [51.20935, 3.22470];
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;
 

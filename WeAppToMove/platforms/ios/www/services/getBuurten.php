@@ -11,7 +11,6 @@
 		$buurt = array("buurt_id" => $row["buurt_id"], "buurt" => $row["buurt"]);
 		$buurten[] = $buurt;
 	}
-	
 
 	$dbc->close();
 	print json_encode($buurten);

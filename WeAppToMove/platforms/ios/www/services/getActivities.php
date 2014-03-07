@@ -40,7 +40,7 @@
 		   $tomorrow = true;
 		}
 
-		$project = array("sql_index"=> $index, "description"=>$row["activity_description"],"activity_id" => $row["activity_id"], "date" => $newDate, "title" => $row["title"], "sport_id" =>$row['sport_id'], "location_id"=>$row['location_id'], "location"=>$row['location'], "coordinates"=>$row['coordinates'], "user_id"=>$row['user_id'], "media" => $mediaCollection, "buurt"=>$row['buurt'], "buurt_id"=>$row["buurt_id"], "today"=>$today, "tomorrow"=>$tomorrow );
+		$project = array("sql_index"=> $index, "description"=>$row["activity_description"],"activity_id" => $row["activity_id"], "sport_title" => $row["sport_title"], "date" => $newDate, "title" => $row["title"], "sport_id" =>$row['sport_id'], "location_id"=>$row['location_id'], "location"=>$row['location'], "coordinates"=>$row['coordinates'], "user_id"=>$row['user_id'], "media" => $mediaCollection, "buurt"=>$row['buurt'], "buurt_id"=>$row["buurt_id"], "today"=>$today, "tomorrow"=>$tomorrow );
 		$projects[] = $project;
 	    $index++;
 

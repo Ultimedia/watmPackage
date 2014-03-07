@@ -183,6 +183,7 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor/phonegap.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor/prototype.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor/underscore.js \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActiveChallengeListView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActivityDetailView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActivityInfoView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActivityMediaView.html \
@@ -190,6 +191,8 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActivityMessagesView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActivityMessageView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ActivityUserView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/BadgeListView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ChallengeListView kopie.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ChallengeListView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/CreateActivityInfoView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/CreateActivityLocationView.html \
@@ -200,15 +203,20 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/DashboardListView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/DashboardView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/FavouriteSportListView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/FriendInvitieView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/FriendsListView kopie.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/FriendsListView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/FriendView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/GoogleMapView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/HelperView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/HomeView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/LoadingView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationBusView kopie.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationBusView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationMapView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerInvitedActivitiesView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerMyActivitiesView kopie.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerMyActivitiesView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/ProfileAvatarView.html \
@@ -218,15 +226,18 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/SettingsView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/SportSelectorView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addFavouriteSports.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addFriend.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addLocation.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addMessage.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addPhotoToDatabase.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addSport.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/addUser.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/core_functions.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/createActivity.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/facebookUserToSQL.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getActivities.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getActivityUser.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getBadges.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getBuurten.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getChallenges.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getFavouriteSports.php \
@@ -235,6 +246,9 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMedia.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMessages.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMyActivities.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMyChallenges.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMyFriends.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMyInvitations.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getMyPlannedActivities.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getSports.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUser.php \
@@ -243,7 +257,10 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserFavouriteSports.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserFromFacebookID.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUsers.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/inviteFriends.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/joinChallenge.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/setGoingToActivity.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/updateAvatar.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/updateChallengeScore.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/uploadService.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/ant-build/AndroidManifest.xml \

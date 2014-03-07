@@ -1,31 +1,79 @@
 appData.views.PlannerView = Backbone.View.extend({
 
   initialize: function () {
+
+    appData.views.PlannerView.updatePlanner = this.updatePlanner;
+    appData.views.PlannerView.updatePlannerComplete = this.updatePlannerComplete;
+    appData.views.PlannerView.getInvitationsHandler = this.getInvitationsHandler;
+    appData.views.PlannerView.acceptedInvite = this.acceptInviteHandler;
+
     Backbone.on('myPlannedActivitiesLoadedHandler', this.updatePlanner);
     Backbone.on('myActivitiesLoadedHandler', this.updatePlannerComplete);
     Backbone.on('getInvitationsHandler', this.getInvitationsHandler)
+    Backbone.on('acceptInviteHandler', this.acceptInviteHandler)
 
+    // Update when a user accepts / declines an invitation
+    appData.views.PlannerView.acceptedInvite = this.acceptedInvite;
+    appData.services.phpService.getMyPlannedActivities();
+  },
+
+  events:{
+      "click .inviteButtons a":"handleInviteHandler"
+  },
+
+  handleInviteHandler: function(evt){
+    var selectedStatus = $(evt.target).attr('data');
+    var invitationID =  $(evt.target).parent().attr('data-invitation');
+    var activityID = $(evt.target).parent().attr('data-activity-id');
+
+    // Decline animation
+    if(selectedStatus == 0){
+
+    // Approve animation
+    }else{
+
+    }
+
+    $(evt.target).parent().parent().hide(200);
+    Backbone.on('acceptInviteHandler');
+    appData.services.phpService.handleInvitations(invitationID, selectedStatus, activityID);
+  },
+
+  acceptInviteHandler: function(){
+    console.log("invite updated");
+
+    Backbone.on('myPlannedActivitiesLoadedHandler', appData.views.PlannerView.updatePlanner);
     appData.services.phpService.getMyPlannedActivities();
   },
 
   updatePlanner: function(){
+    console.log('myPlannedActivitiesLoadedHandler');
+
+    Backbone.on('myActivitiesLoadedHandler', appData.views.PlannerView.updatePlannerComplete);
     appData.services.phpService.getMyActivities();
   },
 
   updatePlannerComplete: function(){
-      appData.services.phpService.getMyInvitations();
+    console.log('myActivitiesLoadedHandler');
+
+    Backbone.on('getInvitationsHandler', appData.views.PlannerView.getInvitationsHandler)
+    appData.services.phpService.getMyInvitations();
   },
 
   getInvitationsHandler: function(){
-    console.log(appData.collections);
 
     Backbone.off('myPlannedActivitiesLoadedHandler');
     Backbone.off('myActivitiesLoadedHandler');
     Backbone.off('getInvitationsHandler');
+    Backbone.off('acceptInviteHandler');
 
     appData.views.PlannerView.myActivitiesView = [];
     appData.views.PlannerView.myJoinedActivitiesView = [];
     appData.views.PlannerView.myInvitedActivitiesView = [];
+
+    $("#myInvitationsPlanner", appData.settings.currentPageHTML).addClass('hide');
+    $("#myActivitiesPlanner", appData.settings.currentPageHTML).addClass('hide');
+    $('#myPlanner', appData.settings.currentPageHTML).addClass('hide');
 
     // get my activities
     appData.collections.myActivities.each(function(activity) {
