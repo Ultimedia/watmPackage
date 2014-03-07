@@ -59,7 +59,8 @@ appData.settings.addFriendService = "addFriend.php";
 appData.settings.getMyInvitationsService = "getMyInvitations.php";
 appData.settings.inviteFriendsService = "inviteFriends.php";
 appData.settings.handleInvitationsService = "handleInvitation.php";
-
+appData.settings.removeFriendService = "removeFriend.php";
+appData.settings.updateUserAvatarService = "updateUserAvatar.php";
 
 appData.settings.defaultLocation = [51.20935, 3.22470];
 appData.settings.dataLoaded = false;
@@ -136,7 +137,7 @@ $(document).on("ready", function () {
       appData.helpers.phonegapHelper = new appData.views.HelperView();
 
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        appData.settings.rootPath = "http://172.30.39.149/";
+        appData.settings.rootPath = "http://172.30.39.147/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
         appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";

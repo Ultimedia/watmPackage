@@ -86,6 +86,9 @@ appData.services.PhpServices = Backbone.Model.extend({
 						appData.models.userModel.attributes.strength_score = data.strength_score;
 						appData.models.userModel.attributes.stamina_score = data.stamina_score;
 						appData.models.userModel.attributes.equipment_score = data.equipment_score;
+						appData.models.userModel.attributes.avatar = data.avatar;
+
+						console.log(data);
 
 						appData.settings.userLoggedIn = true;
 						appData.events.userLoggedInEvent.trigger("userLoggedInHandler");
@@ -548,6 +551,33 @@ appData.services.PhpServices = Backbone.Model.extend({
 				console.log("error");
 			}
 		});	
-    }
+    },
 
+    removeFriend: function(friend_id){
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.removeFriendService,
+			type:'POST',
+			dataType:'json',
+			data: "friend_id="+friend_id,
+			success:function(data){
+				Backbone.trigger('friendRemovedHandler');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    },
+
+    updateUserAvatar: function(avatar){
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateUserAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&avatar="+avatar,
+			success:function(data){
+				Backbone.trigger('updateUserAvatar');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    }
 });

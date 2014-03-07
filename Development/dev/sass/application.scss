@@ -631,3 +631,16 @@ display:table;
     float: right;
   }
 }
+
+.planner-info{
+  display: inline-block;
+  float: right;
+  
+  li{
+    font-size: 12px;
+    float: left;
+    display: inline-block;
+    background: #f2f2f2;
+  }
+}
+

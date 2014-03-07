@@ -24,6 +24,7 @@
 				$return['strength_score'] = $strength_score;
 				$return['equipment_score'] = $equipment_score;
 				$return['current_location'] = $current_location;
+				$return['avatar'] = $avatar;
 
 			}else{
 
@@ -40,6 +41,7 @@
 				$return['strength_score'] = $strength_score;
 				$return['equipment_score'] = $equipment_score;
 				$return['current_location'] = $current_location;
+				$return['avatar'] = $avatar;
 
 			}
 			print json_encode($return);

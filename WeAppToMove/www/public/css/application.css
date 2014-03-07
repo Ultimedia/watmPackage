@@ -736,3 +736,16 @@ ul.autocomplete li a {
   display: inline-block;
   float: right;
 }
+
+/* line 635, ../../../../Development/dev/sass/application.scss */
+.planner-info {
+  display: inline-block;
+  float: right;
+}
+/* line 639, ../../../../Development/dev/sass/application.scss */
+.planner-info li {
+  font-size: 12px;
+  float: left;
+  display: inline-block;
+  background: #f2f2f2;
+}

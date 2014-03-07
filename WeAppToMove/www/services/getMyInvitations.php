@@ -16,7 +16,23 @@
 	$invitations = array();
 
 	while($row = $result->fetch_assoc()){
-		$invitation = array("title" => $row["title"], "activity_id" => $row["activity_id"], "invitation_id" => $row["invitation_id"]);
+		$originalDate =  $row["date"];
+		$newDate = date("d-m-Y", strtotime($originalDate));
+		$today = false;
+		$tomorrow = false;
+
+		// Analyse dates
+		if($newDate == date("d-m-Y")){
+		   $newDate = "Vandaag om " . date("H:i",strtotime($row["date"]));
+		   $feature = true;
+	   	   $today = true;
+		}else if($newDate == date("d-m-Y")+1){
+		   $newDate = "Morgen om " . date("H:i",strtotime($row["date"]));
+		   $tomorrow = true;
+		}
+
+
+		$invitation = array("title" => $row["title"], "activity_id" => $row["activity_id"], "invitation_id" => $row["invitation_id"], "buurt"=>$row['buurt'], "buurt_id"=>$row["buurt_id"], "today"=>$today, "tomorrow"=>$tomorrow, "date" => $newDate, "title" => $row["title"], "sport_id" =>$row['sport_id'], "location_id"=>$row['location_id'], "location"=>$row['location'], "coordinates"=>$row['coordinates'], "user_id"=>$row['user_id'], "description"=>$row['description']);
 		$invitations[] = $invitation;
 	}
 	

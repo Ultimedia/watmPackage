@@ -77,6 +77,10 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/qdqdq.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_042.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_043.jpg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_044.jpg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_045.jpg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_046.jpg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_047.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.battery-status \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.camera \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.device \
@@ -215,6 +219,7 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationBusView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationMapView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/NavigationView.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerInvitedActivitiesView kopie.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerInvitedActivitiesView.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerMyActivitiesView kopie.html \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates/PlannerMyActivitiesView.html \
@@ -257,10 +262,13 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserFavouriteSports.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUserFromFacebookID.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/getUsers.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/handleInvitation.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/inviteFriends.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/joinChallenge.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/removeFriend.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/setGoingToActivity.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/updateAvatar.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/updateChallengeScore.php \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/updateUserAvatar.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/services/uploadService.php \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/ant-build/AndroidManifest.xml \

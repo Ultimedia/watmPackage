@@ -61,7 +61,8 @@ appData.settings.addFriendService = "addFriend.php";
 appData.settings.getMyInvitationsService = "getMyInvitations.php";
 appData.settings.inviteFriendsService = "inviteFriends.php";
 appData.settings.handleInvitationsService = "handleInvitation.php";
-
+appData.settings.removeFriendService = "removeFriend.php";
+appData.settings.updateUserAvatarService = "updateUserAvatar.php";
 
 appData.settings.defaultLocation = [51.20935, 3.22470];
 appData.settings.dataLoaded = false;
@@ -138,7 +139,7 @@ $(document).on("ready", function () {
       appData.helpers.phonegapHelper = new appData.views.HelperView();
 
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        appData.settings.rootPath = "http://172.30.39.149/";
+        appData.settings.rootPath = "http://172.30.39.147/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
         appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
@@ -803,32 +804,6 @@ appData.views.BadgeListView = Backbone.View.extend({
     	// model to template
     	this.$el.html(this.template(this.model.attributes));
         return this; 
-    }
-
-});
-
-
-
-
-appData.views.ChallengeListView = Backbone.View.extend({
-
-    initialize: function () {
-    	this.model.attributes.badges_path = appData.settings.badgesPath;
-
-    }, 
-
-    render: function() { 
-    	// model to template
-    	this.$el.html(this.template(this.model.attributes));
-        return this; 
-    },
-
-    events: {
-    	"click .joinChallenge": "joinChallengeClickHandler"
-    },
-
-    joinChallengeClickHandler: function(evt){
-    	appData.services.phpService.joinChallenge($(evt.target).attr('challenge-id'));
     }
 
 });
@@ -2282,14 +2257,33 @@ appData.views.ProfileFriendsView = Backbone.View.extend({
     initialize: function () {
     	appData.views.friendsListView = [];
         $(appData.models.userModel.attributes.myFriends.models).each(function(index, userModel) {
-        	console.log(userModel);
-
        	appData.views.friendsListView.push(new appData.views.FriendsListView({
             model:userModel
           }));
         });
+
+
+        appData.views.ProfileFriendsView.friendRemovedHandler = this.friendRemovedHandler;
     },
     
+    events:{
+        "click .removeFriend": "removeFriendHandler"
+    },
+
+    friendRemovedHandler: function(){
+        console.log('friend remove');
+    },
+
+    removeFriendHandler: function(evt){
+        var friend_id = $(evt.target).parent().attr('friend-id');
+
+        Backbone.on('friendRemovedHandler', appData.views.ProfileFriendsView.friendRemovedHandler);
+        appData.services.phpService.removeFriend(friend_id);
+
+        $(evt.target).parent().hide(200);
+
+    },
+
     render: function() { 
     	this.$el.html(this.template());
         appData.settings.currentModuleHTML = this.$el;
@@ -2356,16 +2350,59 @@ appData.views.ProfileView = Backbone.View.extend({
 appData.views.SettingsView = Backbone.View.extend({
 
     initialize: function () {
-
+    	appData.views.SettingsView.avatarUploadHandler = this.avatarUploadHandler;
+    	appData.views.SettingsView.avatarUpdatedHandler = this.avatarUpdatedHandler;
     },
 
     render: function () {
     	console.log(appData.models.userModel.attributes);
 
+    	
+
         this.$el.html(this.template({user: appData.models.userModel.attributes}));
         appData.settings.currentPageHTML = this.$el;
         return this;
-    }
+    },
+
+    events: {
+    	"click #changeAvatar": "changeAvatarHandler"
+    },
+
+    avatarUpdatedHandler: function(){
+    	Backbone.off('updateUserAvatar');
+    	$('#userAvatar', appData.settings.currentPageHTML).attr('src', appData.settings.imagePath + appData.views.SettingsView.uploadedPhotoUrl);
+    },
+
+    changeAvatarHandler: function(){
+
+		navigator.camera.getPicture(this.uploadAvatar,
+			function(message) { 
+			},{ quality: 50, targetWidth: 640, targetHeight: 480, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+		);
+    	// change avatar
+    },
+
+    avatarUploadHandler: function(){
+    	Backbone.on('updateUserAvatar', appData.views.SettingsView.avatarUpdatedHandler);
+    	appData.services.phpService.updateUserAvatar(appData.settings.imagePath + appData.views.SettingsView.uploadedPhotoUrl);
+    },
+
+    uploadAvatar: function(imageURI) {
+      var options = new FileUploadOptions();
+      options.fileKey="file";
+      options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+      options.mimeType="image/jpeg";
+
+      var params = new Object();
+      params.value1 =  options.fileName;
+      appData.views.SettingsView.uploadedPhotoUrl = options.fileName;
+
+      options.params = params;
+      options.chunkedMode = false;
+
+      var ft = new FileTransfer();  
+      ft.upload(imageURI, appData.settings.servicePath + appData.settings.imageUploadService, appData.views.SettingsView.avatarUploadHandler(), null, options);    
+    },
 });
 
 appData.views.SportSelectorView = Backbone.View.extend({
@@ -2798,6 +2835,9 @@ appData.services.PhpServices = Backbone.Model.extend({
 						appData.models.userModel.attributes.strength_score = data.strength_score;
 						appData.models.userModel.attributes.stamina_score = data.stamina_score;
 						appData.models.userModel.attributes.equipment_score = data.equipment_score;
+						appData.models.userModel.attributes.avatar = data.avatar;
+
+						console.log(data);
 
 						appData.settings.userLoggedIn = true;
 						appData.events.userLoggedInEvent.trigger("userLoggedInHandler");
@@ -3260,8 +3300,35 @@ appData.services.PhpServices = Backbone.Model.extend({
 				console.log("error");
 			}
 		});	
-    }
+    },
 
+    removeFriend: function(friend_id){
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.removeFriendService,
+			type:'POST',
+			dataType:'json',
+			data: "friend_id="+friend_id,
+			success:function(data){
+				Backbone.trigger('friendRemovedHandler');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    },
+
+    updateUserAvatar: function(avatar){
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateUserAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&avatar="+avatar,
+			success:function(data){
+				Backbone.trigger('updateUserAvatar');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    }
 });
 
 

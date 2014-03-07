@@ -60,7 +60,11 @@ appData.settings.getFriendsService = "getMyFriends.php";
 appData.settings.addFriendService = "addFriend.php";
 appData.settings.getMyInvitationsService = "getMyInvitations.php";
 appData.settings.inviteFriendsService = "inviteFriends.php";
+appData.settings.handleInvitationsService = "handleInvitation.php";
+appData.settings.removeFriendService = "removeFriend.php";
+appData.settings.updateUserAvatarService = "updateUserAvatar.php";
 
+appData.settings.defaultLocation = [51.20935, 3.22470];
 appData.settings.dataLoaded = false;
 appData.settings.userLoggedIn = false;
 
@@ -135,7 +139,7 @@ $(document).on("ready", function () {
       appData.helpers.phonegapHelper = new appData.views.HelperView();
 
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        appData.settings.rootPath = "http://172.30.39.149/";
+        appData.settings.rootPath = "http://172.30.39.147/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
         appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
@@ -454,20 +458,23 @@ appData.views.ActivityDetailView = Backbone.View.extend({
             disableDefaultUI: true
         }
         var map = new google.maps.Map($('#activityMap',appData.settings.currentPageHTML)[0], mapOptions);
-        var coordinates = this.model.attributes.coordinates.split(',');
         
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(coordinates[0], coordinates[1]),
-          map:  map,
-          title: 'Huidige locatie'
-        });
+        var coordinates;
+        if(this.model.attributes.coordinates){
+            coordinates =  this.model.attributes.coordinates.split(',');
 
-        // resize and relocate map
-        google.maps.event.addListenerOnce(map, 'idle', function() {
-          google.maps.event.trigger(map, 'resize');
-          map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
-        });
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(coordinates[0], coordinates[1]),
+            map:  map,
+            title: 'Huidige locatie'
+          });
 
+          // resize and relocate map
+          google.maps.event.addListenerOnce(map, 'idle', function() {
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
+          });
+        }
     },
 
     events: {
@@ -830,32 +837,6 @@ appData.views.ChallengeListView = Backbone.View.extend({
 
 
 
-appData.views.ChallengeListView = Backbone.View.extend({
-
-    initialize: function () {
-    	this.model.attributes.badges_path = appData.settings.badgesPath;
-
-    }, 
-
-    render: function() { 
-    	// model to template
-    	this.$el.html(this.template(this.model.attributes));
-        return this; 
-    },
-
-    events: {
-    	"click .joinChallenge": "joinChallengeClickHandler"
-    },
-
-    joinChallengeClickHandler: function(evt){
-    	appData.services.phpService.joinChallenge($(evt.target).attr('challenge-id'));
-    }
-
-});
-
-
-
-
 appData.views.CreateActivityInfoView = Backbone.View.extend({
 
     initialize: function () {
@@ -932,6 +913,7 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
         this.currentMapLocation ="";
         this.wait = false;
 
+        appData.views.CreateActivityLocationView.setMarkers = this.setMarkers; 
         appData.views.CreateActivityLocationView.tabTarget = {};
         appData.views.CreateActivityLocationView.tabTarget.location = "#wieContent";
         appData.views.CreateActivityLocationView.tabTarget.tab = "#wieTab";
@@ -943,33 +925,14 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
         "keyup #locationInput": "locationChangeHandler"
     },
 
-    clearMarkers: function(){
-        for (var i=0; i<appData.views.CreateActivityLocationView.markers.length; i++) {
-          appData.views.CreateActivityLocationView.markers[i].setVisible(false);
-        }
-
-        appData.views.CreateActivityLocationView.markers = [];
-    },
 
     getLatLonSuccesHandler: function(data){
-        if(data.geometry){
 
-            appData.views.CreateActivityLocationView.currentMapLocation = data.geometry.location.lat + "," + data.geometry.location.lng;
-            appData.views.CreateActivityLocationView.clearMarkers();
-
-            var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(data.geometry.location.lat, data.geometry.location.lng),
-              map:  appData.views.CreateActivityLocationView.map,
-              title: data.formatted_address
-            });
-
-            google.maps.event.addListener(marker, 'click', function() {
-                appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
-            });
-
-            appData.views.CreateActivityLocationView.infowindow.setContent(data.formatted_address);
-            appData.views.CreateActivityLocationView.markers.push(marker);
-            appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(data.geometry.location.lat, data.geometry.location.lng), 13);
+        if(data){
+            if(data.geometry){
+                appData.views.CreateActivityLocationView.currentMapLocation = data.geometry.location.lat + "," + data.geometry.location.lng;
+                appData.views.CreateActivityLocationView.setMarkers(data.geometry.location.lat, data.geometry.location.lng, data.formatted_address);
+            }
         }
     },
 
@@ -985,13 +948,53 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
                         selectedLocationModel = selectedLocationModel[0];
 
                         var coordinates = selectedLocationModel.attributes.coordinates.split(',');
+                            appData.views.CreateActivityLocationView.currentLocation = coordinates;
                             appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(coordinates[0], coordinates[1]), 13);
+                    
+                        if(selectedLocationModel.location == $('#locationInput',  appData.settings.currentModuleHTML).val()){
+                        
+                        }else{
+                            appData.views.ActivityDetailView.model.attributes.location_id = null;
+                            appData.services.utilService.getLatLon($('#locationInput').val());
+                        }
                     }
             }else{
                 appData.services.utilService.getLatLon($('#locationInput').val());
             }
         }
 
+    },
+
+    setMarkers: function(lat, long, content){
+        appData.views.CreateActivityLocationView.clearMarkers();
+        appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(lat, long), 13);
+        
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, long),
+          map:  appData.views.CreateActivityLocationView.map,
+          title: content
+        });
+
+        if(content){
+            appData.views.CreateActivityLocationView.infowindow.setContent('ddddddddd');
+        }
+
+        appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(lat, long), 13);
+
+        google.maps.event.addListener(marker, 'click', function() {
+            appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
+        });
+
+        appData.views.CreateActivityLocationView.markers.push(marker);
+        appData.views.CreateActivityLocationView.infowindow.setContent(content);
+    },
+
+    clearMarkers: function(){
+        for (var i=0; i<appData.views.CreateActivityLocationView.markers.length; i++) {
+          appData.views.CreateActivityLocationView.markers[i].setVisible(false);
+        }
+
+        appData.views.CreateActivityLocationView.markers = [];
     },
 
     addedLocationSuccesEvent: function(location_id){
@@ -1002,7 +1005,19 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
     render: function() { 
       this.$el.html(this.template());
       appData.settings.currentModuleHTML = this.$el;
-      appData.views.CreateActivityLocationView.locationAutComplete = new AutoCompleteView({input: $("#locationInput", appData.settings.currentModuleHTML), model: appData.collections.locations, wait: 100, updateModel: appData.views.ActivityDetailView.model, updateID: "location_id"}).render();
+      
+
+      // autocomplete selector
+      appData.views.CreateActivityLocationView.locationAutComplete = new AutoCompleteView({input: $("#locationInput", appData.settings.currentModuleHTML), model: appData.collections.locations, wait: 100, updateModel: appData.views.ActivityDetailView.model, updateID: "location_id", onSelect: function(){
+
+        var locationModel = appData.collections.locations.where({ "location_id": appData.views.ActivityDetailView.model.attributes.location_id})[0];
+            var coordinates = locationModel.attributes.coordinates.split(',');
+            var location = locationModel.attributes.location;
+
+            appData.views.CreateActivityLocationView.currentLocation = coordinates;
+            appData.views.CreateActivityLocationView.setMarkers(coordinates[0], coordinates[1], location);
+
+      }}).render();
 
       this.setValidators();
       this.initMap();
@@ -1015,13 +1030,23 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
 
         var mapOptions = {
             zoom: 15,
-            center: new google.maps.LatLng(51.20935, 3.22470),
+            center: new google.maps.LatLng(appData.settings.defaultLocation[0], appData.settings.defaultLocation[1]),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true
         }
         var page = this.$el;
         appData.views.CreateActivityLocationView.map = new google.maps.Map($('#map_canvas',page)[0], mapOptions);
         appData.views.CreateActivityLocationView.infowindow = new google.maps.InfoWindow();
+
+        appData.views.CreateActivityLocationView.currentLocation = [];
+        appData.views.CreateActivityLocationView.currentLocation.push(51.20935);
+        appData.views.CreateActivityLocationView.currentLocation.push(3.22470);
+
+        // resize and relocate map
+        google.maps.event.addListenerOnce(appData.views.CreateActivityLocationView.map, 'idle', function() {
+            google.maps.event.trigger(appData.views.CreateActivityLocationView.map, 'resize');
+            appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(appData.views.CreateActivityLocationView.currentLocation[0], appData.views.CreateActivityLocationView.currentLocation[1]), 13);
+        });
 
         if(appData.settings.native){
             appData.services.utilService.getLocationService("createActivity");
@@ -1030,24 +1055,7 @@ appData.views.CreateActivityLocationView = Backbone.View.extend({
     },
 
     locationSuccesHandler: function(position){
-        appData.views.CreateActivityLocationView.clearMarkers();
-        appData.views.CreateActivityLocationView.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 13);
-        
-        console.log(position);
-
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-          map:  appData.views.CreateActivityLocationView.map,
-          title: 'Huidige locatie'
-        });
-
-        appData.views.CreateActivityLocationView.infowindow.setContent('ddddddddd');
-
-        google.maps.event.addListener(marker, 'click', function() {
-            appData.views.CreateActivityLocationView.infowindow.open(appData.views.CreateActivityLocationView.map,marker);
-        });
-
-        appData.views.CreateActivityLocationView.markers.push(marker);
+        appData.views.CreateActivityLocationView.setMarkers(position.coords.latitude, position.coords.longitude);
     },
 
     locationErrorHandler: function(location_id){
@@ -1974,12 +1982,11 @@ appData.views.NavigationView = Backbone.View.extend({
 appData.views.PlannerInvitedActivitiesView = Backbone.View.extend({
 
     initialize: function () {
-
+    	appData.views.PlannerInvitedActivitiesView.model = this.model;
     },
 
     render: function () {
         this.$el.html(this.template(this.model.attributes));
-
         return this; 
     }
 });
@@ -2000,31 +2007,79 @@ appData.views.PlannerMyActivitiesView = Backbone.View.extend({
 appData.views.PlannerView = Backbone.View.extend({
 
   initialize: function () {
+
+    appData.views.PlannerView.updatePlanner = this.updatePlanner;
+    appData.views.PlannerView.updatePlannerComplete = this.updatePlannerComplete;
+    appData.views.PlannerView.getInvitationsHandler = this.getInvitationsHandler;
+    appData.views.PlannerView.acceptedInvite = this.acceptInviteHandler;
+
     Backbone.on('myPlannedActivitiesLoadedHandler', this.updatePlanner);
     Backbone.on('myActivitiesLoadedHandler', this.updatePlannerComplete);
     Backbone.on('getInvitationsHandler', this.getInvitationsHandler)
+    Backbone.on('acceptInviteHandler', this.acceptInviteHandler)
 
+    // Update when a user accepts / declines an invitation
+    appData.views.PlannerView.acceptedInvite = this.acceptedInvite;
+    appData.services.phpService.getMyPlannedActivities();
+  },
+
+  events:{
+      "click .inviteButtons a":"handleInviteHandler"
+  },
+
+  handleInviteHandler: function(evt){
+    var selectedStatus = $(evt.target).attr('data');
+    var invitationID =  $(evt.target).parent().attr('data-invitation');
+    var activityID = $(evt.target).parent().attr('data-activity-id');
+
+    // Decline animation
+    if(selectedStatus == 0){
+
+    // Approve animation
+    }else{
+
+    }
+
+    $(evt.target).parent().parent().hide(200);
+    Backbone.on('acceptInviteHandler');
+    appData.services.phpService.handleInvitations(invitationID, selectedStatus, activityID);
+  },
+
+  acceptInviteHandler: function(){
+    console.log("invite updated");
+
+    Backbone.on('myPlannedActivitiesLoadedHandler', appData.views.PlannerView.updatePlanner);
     appData.services.phpService.getMyPlannedActivities();
   },
 
   updatePlanner: function(){
+    console.log('myPlannedActivitiesLoadedHandler');
+
+    Backbone.on('myActivitiesLoadedHandler', appData.views.PlannerView.updatePlannerComplete);
     appData.services.phpService.getMyActivities();
   },
 
   updatePlannerComplete: function(){
-      appData.services.phpService.getMyInvitations();
+    console.log('myActivitiesLoadedHandler');
+
+    Backbone.on('getInvitationsHandler', appData.views.PlannerView.getInvitationsHandler)
+    appData.services.phpService.getMyInvitations();
   },
 
   getInvitationsHandler: function(){
-    console.log(appData.collections);
 
     Backbone.off('myPlannedActivitiesLoadedHandler');
     Backbone.off('myActivitiesLoadedHandler');
     Backbone.off('getInvitationsHandler');
+    Backbone.off('acceptInviteHandler');
 
     appData.views.PlannerView.myActivitiesView = [];
     appData.views.PlannerView.myJoinedActivitiesView = [];
     appData.views.PlannerView.myInvitedActivitiesView = [];
+
+    $("#myInvitationsPlanner", appData.settings.currentPageHTML).addClass('hide');
+    $("#myActivitiesPlanner", appData.settings.currentPageHTML).addClass('hide');
+    $('#myPlanner', appData.settings.currentPageHTML).addClass('hide');
 
     // get my activities
     appData.collections.myActivities.each(function(activity) {
@@ -2202,14 +2257,33 @@ appData.views.ProfileFriendsView = Backbone.View.extend({
     initialize: function () {
     	appData.views.friendsListView = [];
         $(appData.models.userModel.attributes.myFriends.models).each(function(index, userModel) {
-        	console.log(userModel);
-
        	appData.views.friendsListView.push(new appData.views.FriendsListView({
             model:userModel
           }));
         });
+
+
+        appData.views.ProfileFriendsView.friendRemovedHandler = this.friendRemovedHandler;
     },
     
+    events:{
+        "click .removeFriend": "removeFriendHandler"
+    },
+
+    friendRemovedHandler: function(){
+        console.log('friend remove');
+    },
+
+    removeFriendHandler: function(evt){
+        var friend_id = $(evt.target).parent().attr('friend-id');
+
+        Backbone.on('friendRemovedHandler', appData.views.ProfileFriendsView.friendRemovedHandler);
+        appData.services.phpService.removeFriend(friend_id);
+
+        $(evt.target).parent().hide(200);
+
+    },
+
     render: function() { 
     	this.$el.html(this.template());
         appData.settings.currentModuleHTML = this.$el;
@@ -2276,16 +2350,59 @@ appData.views.ProfileView = Backbone.View.extend({
 appData.views.SettingsView = Backbone.View.extend({
 
     initialize: function () {
-
+    	appData.views.SettingsView.avatarUploadHandler = this.avatarUploadHandler;
+    	appData.views.SettingsView.avatarUpdatedHandler = this.avatarUpdatedHandler;
     },
 
     render: function () {
     	console.log(appData.models.userModel.attributes);
 
+    	
+
         this.$el.html(this.template({user: appData.models.userModel.attributes}));
         appData.settings.currentPageHTML = this.$el;
         return this;
-    }
+    },
+
+    events: {
+    	"click #changeAvatar": "changeAvatarHandler"
+    },
+
+    avatarUpdatedHandler: function(){
+    	Backbone.off('updateUserAvatar');
+    	$('#userAvatar', appData.settings.currentPageHTML).attr('src', appData.settings.imagePath + appData.views.SettingsView.uploadedPhotoUrl);
+    },
+
+    changeAvatarHandler: function(){
+
+		navigator.camera.getPicture(this.uploadAvatar,
+			function(message) { 
+			},{ quality: 50, targetWidth: 640, targetHeight: 480, destinationType: navigator.camera.DestinationType.FILE_URI, sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+		);
+    	// change avatar
+    },
+
+    avatarUploadHandler: function(){
+    	Backbone.on('updateUserAvatar', appData.views.SettingsView.avatarUpdatedHandler);
+    	appData.services.phpService.updateUserAvatar(appData.settings.imagePath + appData.views.SettingsView.uploadedPhotoUrl);
+    },
+
+    uploadAvatar: function(imageURI) {
+      var options = new FileUploadOptions();
+      options.fileKey="file";
+      options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+      options.mimeType="image/jpeg";
+
+      var params = new Object();
+      params.value1 =  options.fileName;
+      appData.views.SettingsView.uploadedPhotoUrl = options.fileName;
+
+      options.params = params;
+      options.chunkedMode = false;
+
+      var ft = new FileTransfer();  
+      ft.upload(imageURI, appData.settings.servicePath + appData.settings.imageUploadService, appData.views.SettingsView.avatarUploadHandler(), null, options);    
+    },
 });
 
 appData.views.SportSelectorView = Backbone.View.extend({
@@ -2718,6 +2835,9 @@ appData.services.PhpServices = Backbone.Model.extend({
 						appData.models.userModel.attributes.strength_score = data.strength_score;
 						appData.models.userModel.attributes.stamina_score = data.stamina_score;
 						appData.models.userModel.attributes.equipment_score = data.equipment_score;
+						appData.models.userModel.attributes.avatar = data.avatar;
+
+						console.log(data);
 
 						appData.settings.userLoggedIn = true;
 						appData.events.userLoggedInEvent.trigger("userLoggedInHandler");
@@ -3164,8 +3284,51 @@ appData.services.PhpServices = Backbone.Model.extend({
 				}
   			});	
     	});
-    }
+    },
 
+	handleInvitations: function(invitation_id, accepted, activity_id){
+
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.handleInvitationsService,
+			type:'POST',
+			dataType:'json',
+			data: "invitation_id="+invitation_id+"&accepted="+accepted+"&activity_id="+activity_id+"&user_id="+appData.models.userModel.attributes.user_id,
+			success:function(data){
+				console.log("dataaaaaa");
+				Backbone.trigger('acceptInviteHandler');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    },
+
+    removeFriend: function(friend_id){
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.removeFriendService,
+			type:'POST',
+			dataType:'json',
+			data: "friend_id="+friend_id,
+			success:function(data){
+				Backbone.trigger('friendRemovedHandler');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    },
+
+    updateUserAvatar: function(avatar){
+		$.ajax({
+			url:appData.settings.servicePath + appData.settings.updateUserAvatarService,
+			type:'POST',
+			dataType:'json',
+			data: "user_id="+appData.models.userModel.attributes.user_id+"&avatar="+avatar,
+			success:function(data){
+				Backbone.trigger('updateUserAvatar');
+			}, error: function(){
+				console.log("error");
+			}
+		});	
+    }
 });
 
 
