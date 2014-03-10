@@ -4,7 +4,6 @@ ActivitiesCollection = Backbone.Collection.extend({
 	
 	initialize: function (models,options) { 
      this.sort_key = 'distance';
-
 	},
 
     comparator: function(a, b) {
@@ -16,11 +15,12 @@ ActivitiesCollection = Backbone.Collection.extend({
         return a > b ?  1
              : a < b ? -1
              :          0;
-    }  ,
-
+    },
 
     sort_by_attribute: function(sort_key) {
         this.sort_key = sort_key;
+
         this.sort();
+        console.log(this);
     }
 });

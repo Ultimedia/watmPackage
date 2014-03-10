@@ -28,6 +28,7 @@ appData.views.CreateActivityWieView = Backbone.View.extend({
     	var that = this;
         $("#wieForm",appData.settings.currentModuleHTML).validate({
             submitHandler: function(form){
+              
               Backbone.on('activityCreated', appData.views.CreateActivityWieView.activityCreatedHandler);
               appData.services.phpService.createActivity(appData.views.ActivityDetailView.model);
             }
@@ -35,10 +36,18 @@ appData.views.CreateActivityWieView = Backbone.View.extend({
     },
 
     activityCreatedHandler: function(activity_id){
+
       // now add friends
+      Backbone.off('activityCreated');
       appData.views.CreateActivityWieView.activity_id = activity_id;
-      Backbone.on('friendsInvitedHandler', appData.views.CreateActivityWieView.friendsInvitedHandler);
-      appData.services.phpService.inviteFriends(appData.collections.selectedFriends, activity_id);
+
+      if(appData.collections.selectedFriends.length > 0){
+        Backbone.on('friendsInvitedHandler', appData.views.CreateActivityWieView.friendsInvitedHandler);
+        appData.services.phpService.inviteFriends(appData.collections.selectedFriends, activity_id);
+      }else{
+        appData.services.phpService.getActivities(false, appData.views.CreateActivityWieView.activity_id);
+      }
+
     },
 
     friendsInvitedHandler: function(){

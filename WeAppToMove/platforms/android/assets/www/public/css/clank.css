@@ -3500,32 +3500,36 @@ ul.autocomplete li a {
 #dashboard #sortBar {
   background: #8d7069;
 }
+/* line 546, ../../../../Development/dev/sass/application.scss */
+#dashboard #map_canvas {
+  height: 140px;
+}
 
-/* line 548, ../../../../Development/dev/sass/application.scss */
+/* line 552, ../../../../Development/dev/sass/application.scss */
 #waarContent #map_canvas {
   height: 400px;
 }
 
-/* line 555, ../../../../Development/dev/sass/application.scss */
+/* line 559, ../../../../Development/dev/sass/application.scss */
 #navigationView #map_canvas {
   height: 50%;
 }
-/* line 559, ../../../../Development/dev/sass/application.scss */
+/* line 563, ../../../../Development/dev/sass/application.scss */
 #navigationView #directions {
   height: 50%;
 }
 
-/* line 564, ../../../../Development/dev/sass/application.scss */
+/* line 568, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList {
   display: table;
 }
-/* line 567, ../../../../Development/dev/sass/application.scss */
+/* line 571, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList div {
   float: left;
   display: table-cell;
   vertical-align: middle;
 }
-/* line 572, ../../../../Development/dev/sass/application.scss */
+/* line 576, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList div a {
   min-width: 70px;
   min-height: 70px;
@@ -3536,61 +3540,67 @@ ul.autocomplete li a {
   text-align: center;
   font-size: 12px;
 }
-/* line 583, ../../../../Development/dev/sass/application.scss */
+/* line 587, ../../../../Development/dev/sass/application.scss */
 #favouriteSportList div a.selected {
   background: #fff;
 }
 
-/* line 590, ../../../../Development/dev/sass/application.scss */
+/* line 594, ../../../../Development/dev/sass/application.scss */
 #favouriteSportsSelector #confirm {
   top: 0;
 }
-/* line 594, ../../../../Development/dev/sass/application.scss */
+/* line 598, ../../../../Development/dev/sass/application.scss */
 #favouriteSportsSelector ul.autocomplete {
   position: absolute;
 }
 
-/* line 601, ../../../../Development/dev/sass/application.scss */
+/* line 605, ../../../../Development/dev/sass/application.scss */
 #aanwezigContent div {
   float: left;
   margin-right: 5px;
 }
-/* line 606, ../../../../Development/dev/sass/application.scss */
+/* line 610, ../../../../Development/dev/sass/application.scss */
 #aanwezigContent .user_avatar {
   float: left;
   display: inline-block;
 }
-/* line 611, ../../../../Development/dev/sass/application.scss */
+/* line 615, ../../../../Development/dev/sass/application.scss */
 #aanwezigContent .user_avatar img {
   min-width: 50px;
   max-height: 50px;
 }
 
-/* line 621, ../../../../Development/dev/sass/application.scss */
+/* line 625, ../../../../Development/dev/sass/application.scss */
 #myInvitationsTable .cl-table-cell {
   padding: 10px 0;
 }
-/* line 625, ../../../../Development/dev/sass/application.scss */
+/* line 629, ../../../../Development/dev/sass/application.scss */
 #myInvitationsTable .cl-table-cell a {
   display: inline-block;
 }
-/* line 629, ../../../../Development/dev/sass/application.scss */
+/* line 633, ../../../../Development/dev/sass/application.scss */
 #myInvitationsTable .cl-btn-group.float {
   display: inline-block;
   float: right;
 }
 
-/* line 635, ../../../../Development/dev/sass/application.scss */
+/* line 639, ../../../../Development/dev/sass/application.scss */
 .planner-info {
   display: inline-block;
   float: right;
 }
-/* line 639, ../../../../Development/dev/sass/application.scss */
+/* line 643, ../../../../Development/dev/sass/application.scss */
 .planner-info li {
   font-size: 12px;
   float: left;
   display: inline-block;
   background: #f2f2f2;
+}
+
+/* line 651, ../../../../Development/dev/sass/application.scss */
+#userAvatar, .friend-avatar {
+  max-width: 160px;
+  max-height: 160px;
 }
 
 @font-face {
