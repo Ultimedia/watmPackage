@@ -100,34 +100,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
-        "id": "org.apache.cordova.camera.Camera",
-        "clobbers": [
-            "Camera"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js",
-        "id": "org.apache.cordova.camera.CameraPopoverOptions",
-        "clobbers": [
-            "CameraPopoverOptions"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/Camera.js",
-        "id": "org.apache.cordova.camera.camera",
-        "clobbers": [
-            "navigator.camera"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js",
-        "id": "org.apache.cordova.camera.CameraPopoverHandle",
-        "clobbers": [
-            "CameraPopoverHandle"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.media-capture/www/CaptureAudioOptions.js",
         "id": "org.apache.cordova.media-capture.CaptureAudioOptions",
         "clobbers": [
@@ -219,10 +191,31 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js",
-        "id": "org.apache.cordova.inappbrowser.InAppBrowser",
+        "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
+        "id": "org.apache.cordova.camera.Camera",
         "clobbers": [
-            "window.open"
+            "Camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js",
+        "id": "org.apache.cordova.camera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/Camera.js",
+        "id": "org.apache.cordova.camera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js",
+        "id": "org.apache.cordova.camera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
         ]
     },
     {
@@ -365,13 +358,12 @@ module.exports.metadata =
     "org.apache.cordova.device-motion": "0.2.6",
     "org.apache.cordova.device-orientation": "0.3.5",
     "org.apache.cordova.geolocation": "0.3.6",
-    "org.apache.cordova.camera": "0.2.7",
     "org.apache.cordova.media-capture": "0.2.7",
     "org.apache.cordova.media": "0.2.8",
     "org.apache.cordova.file-transfer": "0.4.1",
     "org.apache.cordova.globalization": "0.2.6",
-    "org.apache.cordova.inappbrowser": "0.3.1",
     "org.apache.cordova.console": "0.2.7",
+    "org.apache.cordova.camera": "0.2.8",
     "org.apache.cordova.file": "1.0.0"
 }
 // BOTTOM OF METADATA

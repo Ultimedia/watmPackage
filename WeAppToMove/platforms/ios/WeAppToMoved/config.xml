@@ -41,9 +41,6 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
-    <feature name="Camera">
-        <param name="ios-package" value="CDVCamera" />
-    </feature>
     <feature name="File">
         <param name="ios-package" value="CDVFile" />
     </feature>
@@ -59,11 +56,11 @@
     <feature name="Globalization">
         <param name="ios-package" value="CDVGlobalization" />
     </feature>
-    <feature name="InAppBrowser">
-        <param name="ios-package" value="CDVInAppBrowser" />
-    </feature>
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
+    </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
     </feature>
     <name>WeAppToMoved</name>
     <description>

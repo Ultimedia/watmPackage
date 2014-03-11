@@ -13,14 +13,13 @@
                 "<feature name=\"Accelerometer\"><param name=\"ios-package\" value=\"CDVAccelerometer\" /></feature>": 1,
                 "<feature name=\"Compass\"><param name=\"ios-package\" value=\"CDVCompass\" /></feature>": 1,
                 "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>": 1,
-                "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>": 1,
                 "<feature name=\"File\"><param name=\"ios-package\" value=\"CDVFile\" /></feature>": 1,
                 "<feature name=\"Capture\"><param name=\"ios-package\" value=\"CDVCapture\" /></feature>": 1,
                 "<feature name=\"Media\"><param name=\"ios-package\" value=\"CDVSound\" /></feature>": 1,
                 "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>": 1,
                 "<feature name=\"Globalization\"><param name=\"ios-package\" value=\"CDVGlobalization\" /></feature>": 1,
-                "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>": 1,
-                "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>": 1
+                "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>": 1,
+                "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>": 1
             }
         },
         "framework": {
@@ -37,7 +36,7 @@
                 "false": 1
             },
             "CoreGraphics.framework": {
-                "false": 4
+                "false": 3
             },
             "AssetsLibrary.framework": {
                 "false": 3
@@ -70,9 +69,6 @@
         "org.apache.cordova.geolocation": {
             "PACKAGE_NAME": "be.devine.watm"
         },
-        "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "be.devine.watm"
-        },
         "org.apache.cordova.media-capture": {
             "PACKAGE_NAME": "be.devine.watm"
         },
@@ -85,10 +81,10 @@
         "org.apache.cordova.globalization": {
             "PACKAGE_NAME": "be.devine.watm"
         },
-        "org.apache.cordova.inappbrowser": {
+        "org.apache.cordova.console": {
             "PACKAGE_NAME": "be.devine.watm"
         },
-        "org.apache.cordova.console": {
+        "org.apache.cordova.camera": {
             "PACKAGE_NAME": "be.devine.watm"
         }
     },
