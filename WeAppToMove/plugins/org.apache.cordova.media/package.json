@@ -1,5 +1,5 @@
 {
-    "version": "0.2.8",
+    "version": "0.2.9",
     "name": "org.apache.cordova.media",
     "cordova_name": "Media",
     "description": "Cordova Media Plugin",
@@ -9,6 +9,17 @@
     "keywords": [
         "cordova",
         "media"
+    ],
+    "platforms": [
+        "android",
+        "amazon-fireos",
+        "ubuntu",
+        "ios",
+        "blackberry10",
+        "wp7",
+        "wp8",
+        "windows8",
+        "tizen"
     ],
     "engines": []
 }

@@ -73,7 +73,6 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.file \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.geolocation \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.globalization \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.network-information \
@@ -122,9 +121,6 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/geolocation.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/Position.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.geolocation/www/PositionError.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www/globalization.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.globalization/www/GlobalizationError.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media/www \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media/www/Media.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media/www/MediaError.js \

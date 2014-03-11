@@ -47,20 +47,17 @@
     <feature name="Capture">
         <param name="ios-package" value="CDVCapture" />
     </feature>
-    <feature name="Media">
-        <param name="ios-package" value="CDVSound" />
-    </feature>
     <feature name="FileTransfer">
         <param name="ios-package" value="CDVFileTransfer" />
-    </feature>
-    <feature name="Globalization">
-        <param name="ios-package" value="CDVGlobalization" />
     </feature>
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
     </feature>
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <feature name="Media">
+        <param name="ios-package" value="CDVSound" />
     </feature>
     <name>WeAppToMoved</name>
     <description>
