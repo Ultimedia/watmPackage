@@ -1,6 +1,8 @@
 appData.views.LoadingView = Backbone.View.extend({
 
     initialize: function () {
+        appData.views.LoadingView = this;
+
         appData.events.getActivitiesSuccesEvent.bind("activitiesLoadedHandler", this.activitiesLoadedHandler);
         appData.events.getSportsSuccesEvent.bind("sportsLoadedHandler", this.sportsLoadedHandlers);
         appData.events.getUsersSuccesEvent.bind("usersLoadedHandler", this.usersLoadedHandler)
@@ -84,11 +86,27 @@ appData.views.LoadingView = Backbone.View.extend({
         Backbone.off('getFriendsHandler');
         appData.settings.dataLoaded = true;
 
+
         if(appData.collections.myFavouriteSports.length > 0){
             appData.router.navigate('dashboard', true);
         }else{
             appData.router.navigate('sportselector', true);
         }
+
+       appData.views.LoadingView.destroy_view();
+    },
+
+    destroy_view: function() {
+
+    //COMPLETELY UNBIND THE VIEW
+    this.undelegateEvents();
+
+    this.$el.removeData().unbind(); 
+
+    //Remove view from DOM
+    this.remove();  
+    Backbone.View.prototype.remove.call(this);
+
     }
 
 });

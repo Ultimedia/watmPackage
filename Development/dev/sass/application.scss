@@ -32,26 +32,23 @@ body {
     width:100%;
 }
 
+/* Error box */
+label.error{
+  background: red;
+  display: block;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  color: #fff;
+  animation: fadein 0.5s;
+  -moz-animation: fadein 0.5s;
+  -webkit-animation: fadein 0.5s;
+  -o-animation: fadein 0.5s;
+}
 
 form .cl-btn{
   width: 100% !important;
 }
-
-
-/**
- * Styles to fix the new iOS 7 transparent status bar
- */
-#ios7statusbar {
-    width:100%;
-    height:20px;
-    background-color:white;
-    position:fixed;
-    z-index:10000;
-}
-.ios7 .ui-page, .ios7 .ui-header, .ios7 .ui-pane {
-    margin-top: 20px;
-}
-
 
 #activity-header{
 	height: 200px;
@@ -142,14 +139,7 @@ form .cl-btn{
 
 
 /* ios specific */
-.cl-bar-title{
-	height: 68px;
-}
 
-
-.cl-bar-title .cl-title, .cl-modal .cl-modal-bar-title .cl-title, .cl-modal .cl-modal-bar-title .cl-modal-title{
-	line-height: 80px;
-}
 
 .cl-bar-title a{
   display: inline-block;
@@ -248,10 +238,6 @@ form .cl-btn{
 	padding: 0;
 }
 
-#home .cl-content{
-	padding-top: 10px;
-}
-
 #addMediaButton{
 	width: 100%;
 }
@@ -271,14 +257,6 @@ form .cl-btn{
 
 }
 
-#createUserForm label.error, #loginForm label.error, #watForm label.error{
-	background: red;
-	display: block;
-	padding: 10px;
-	margin-bottom: 15px;
-	margin-top: 5px;
-	color: #fff;
-}
 
 #createUserForm input.error, #loginForm input.error{
 	margin-bottom: 0;
@@ -287,13 +265,14 @@ form .cl-btn{
 
 /* Login page */
 .error-box{
-	background: red;
+	background: #e54c2e;
 	display: block;
 	padding: 10px;
 	margin-bottom: 15px;
 	margin-top: 5px;
 	color: #fff;
 }
+
 
 .error-box.hide{
 	display: none;
@@ -378,40 +357,10 @@ ul.autocomplete li a {
 }
 
 
-
-#loading{
-  background: #258dc8; /* Old browsers */
-background: -moz-linear-gradient(top,  #258dc8 0%, #258dc8 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#258dc8), color-stop(100%,#258dc8)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #258dc8 0%,#258dc8 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #258dc8 0%,#258dc8 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #258dc8 0%,#258dc8 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #258dc8 0%,#258dc8 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#258dc8',GradientType=0 ); /* IE6-9 */
-display:table;
-}
-
-#loading h2{
-  display: table-cell;
-  text-align: center;
-  color: #fff;
-  height: 100%;
-  vertical-align:middle;
-  font-size: 2em;
-}
-
-#loading h2 small{
-  font-size: 0.6em;
-}
-
 .align-center{
   text-align: center;
 }
 
-.cl-message{
-  padding: 10px;
-  background-color: #c3c3c3;
-}
 
 
 .field > span {
@@ -525,19 +474,6 @@ display:table;
 
 
 /* Page specific */
-#home{
-
-  .cl-bar-title{
-    height: 140px;
-    display: table;
-  }
-
-  .cl-title{
-  display: table-cell;
-  vertical-align: middle;
-  }
-}
-
 #dashboard{
 
     #sortBar{
@@ -661,9 +597,21 @@ display:table;
 * Final styling 
 */
 
-#home{
-  background: url('../../common/img/home_background.png') bottom left;
-  repeat: none;
+body{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+input.error{
+  border: 1px solid #e54c2e !important;
+}
+
+
+
+/**
+* HOME and CREATEUSER page
+*/
+#home, #createUser{
+  background: #303d4d url('../../common/img/home_background.png') bottom left;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -682,7 +630,13 @@ display:table;
       color: #fff;
     }
 
-    input[type=email], input[type=password]{
+    #home_logo{
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    input[type=email], input[type=password], input[type=text]{
       background: none;
       border: none;
       border-bottom: 1px solid #a19d97;
@@ -690,9 +644,7 @@ display:table;
       padding: 20px 0 20px 10px;
       font-size: 1.3em;
       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    }
-    input[type=email]{
-
+      outline: none;
     }
 
     .cl-btn, .cl-btn-primary{
@@ -706,6 +658,49 @@ display:table;
 
     .cl-btn{
       background: #23cddd;
+    }
+  }
+}
+
+#createUser{
+  .cl-content{
+    position: relative;
+  }
+
+  .cl-message{
+    padding: 10px;
+    background-color: #dbd4c7;
+    line-height: 1.6em;
+  }
+}
+
+
+/**
+* Loading
+*/
+#loading{
+  background: #303d4d url('../../common/img/loading_background.png') center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+
+  h2{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    padding-top: 20px;
+    vertical-align:middle;
+    font-size: 20px;
+    position: absolute;
+    bottom: 20px;
+    display: inline-block;
+    small{
+      font-size: 14px;
+      margin-top: 10px;
+      display: block;
     }
   }
 }

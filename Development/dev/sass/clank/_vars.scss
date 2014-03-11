@@ -25,12 +25,15 @@ $base-line-height:                  1.5;
 
 
 $very-light-color:                   #FFF    !default;
-$light-color:                        #DDD    !default;
+$light-color:                        #dbd4c7    !default;
 $light-medium-color:                 #AAA    !default;
 $medium-color:                       #666    !default;
 $dark-color:                         #333    !default;
 $very-dark-color:                    #000    !default;
-                                     
+
+
+
+                                    
 $divider-color:                      $light-medium-color;
                                      
 $background-color:                   mix($very-light-color, $light-color, 50%) !default;
@@ -84,3 +87,14 @@ $break-xxx-large:              1650 / 16 * 1em;
 $cl-alert-z-index:             1202000202;
 $cl-alert-box-z-index:         120203202;
 $cl-popover-z-index:           1100202;
+
+
+
+
+
+
+/* WATM Colours
+   ========================================================================== */
+$bar-color:                           #ff7f66    !default;
+$bar-dark-color:                      #303d4d    !default;
+$message-color:                      #dbd4c7    !default;

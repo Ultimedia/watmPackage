@@ -10,6 +10,11 @@ appData.views.SettingsView = Backbone.View.extend({
 
       this.$el.html(this.template({user: appData.models.userModel.attributes}));
       appData.settings.currentPageHTML = this.$el;
+
+      if(appData.settings.native){
+        $('#changeAvatar').removeClass('hide');
+      }
+
       return this;
     },
 

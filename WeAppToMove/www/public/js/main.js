@@ -751,6 +751,12 @@ appData.views.ActivityMediaView = Backbone.View.extend({
     render: function() { 
       this.$el.html(this.template(this.model.attributes));
       appData.settings.currentModuleHTML = this.$el;
+
+      // Hide the upload button if we're not on a native device
+      if(appData.settings.native){
+        $('#addMediaButton',appData.settings.currentModuleHTML).removeClass('hide');
+      }
+
         return this; 
     },
 
@@ -1680,7 +1686,9 @@ appData.views.HomeView = Backbone.View.extend({
 				appData.models.userModel.set('password', password);
 
                 appData.services.phpService.userLogin();
-		  	}
+		  	},invalidHandler: function(form, validator) {
+            // not sure if this is the correct selector but I found it here: http://docs.jquery.com/Plugins/Validation/validate#toptions
+        }
     	});
     },
 
@@ -1777,6 +1785,8 @@ appData.views.HomeView = Backbone.View.extend({
 appData.views.LoadingView = Backbone.View.extend({
 
     initialize: function () {
+        appData.views.LoadingView = this;
+
         appData.events.getActivitiesSuccesEvent.bind("activitiesLoadedHandler", this.activitiesLoadedHandler);
         appData.events.getSportsSuccesEvent.bind("sportsLoadedHandler", this.sportsLoadedHandlers);
         appData.events.getUsersSuccesEvent.bind("usersLoadedHandler", this.usersLoadedHandler)
@@ -1860,11 +1870,27 @@ appData.views.LoadingView = Backbone.View.extend({
         Backbone.off('getFriendsHandler');
         appData.settings.dataLoaded = true;
 
+
         if(appData.collections.myFavouriteSports.length > 0){
             appData.router.navigate('dashboard', true);
         }else{
             appData.router.navigate('sportselector', true);
         }
+
+       appData.views.LoadingView.destroy_view();
+    },
+
+    destroy_view: function() {
+
+    //COMPLETELY UNBIND THE VIEW
+    this.undelegateEvents();
+
+    this.$el.removeData().unbind(); 
+
+    //Remove view from DOM
+    this.remove();  
+    Backbone.View.prototype.remove.call(this);
+
     }
 
 });
@@ -2436,6 +2462,11 @@ appData.views.SettingsView = Backbone.View.extend({
 
       this.$el.html(this.template({user: appData.models.userModel.attributes}));
       appData.settings.currentPageHTML = this.$el;
+
+      if(appData.settings.native){
+        $('#changeAvatar').removeClass('hide');
+      }
+
       return this;
     },
 
@@ -2605,8 +2636,11 @@ appData.routers.AppRouter = Backbone.Router.extend({
     },
 
     loading: function () {
-        appData.slider.slidePage(new appData.views.LoadingView({model: appData.models.userModel}).render().$el);
-        
+        if(!appData.settings.dataLoaded){
+            appData.slider.slidePage(new appData.views.LoadingView({model: appData.models.userModel}).render().$el);
+        }else{
+            window.location.hash = "dashboard";
+        }
     },
     
     dashboard: function () {

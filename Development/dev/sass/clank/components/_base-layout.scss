@@ -17,7 +17,6 @@
 /* Content */
 
 .cl-content {
-  background: mix($very-light-color, $light-color, 50%);
 
   overflow-x: hidden;
   overflow-y: scroll;
@@ -55,11 +54,12 @@
   width: 100%;
   // default
   min-height: $ios-bar-size;
-  height: $ios-bar-size;
+  background: $bar-color;
   [data-os="android"] & {
     min-height: $android-bar-size;
     height: $android-bar-size;
   }
+
   position: relative;
 }
 
@@ -128,7 +128,7 @@
 .cl-title {
   font-size: 20px;
   margin: 0;
-  font-weight: 700;
+  font-weight: 100;
   white-space: nowrap;
   text-align: center;
 
@@ -136,7 +136,6 @@
   @include determine-text-color($accent-color);
 
   // default
-  line-height: $ios-bar-size;
   [data-os="android"] & {
     line-height: $android-bar-size;
   }
@@ -173,7 +172,11 @@
       left: 0;
     }
   } @else {
-    background: $accent-color;
+    background: $bar-dark-color;
+  }
+
+  .cl-btn{
+    background: none !important;
   }
 }
 
@@ -208,4 +211,13 @@
    top: 0;
    left: 4px;
  }
+}
+
+.cl-btn-header{
+  background: none;
+}
+
+
+.cl-bar-title .cl-title, .cl-modal .cl-modal-bar-title .cl-title, .cl-modal .cl-modal-bar-title .cl-modal-title{
+  line-height: 80px;
 }

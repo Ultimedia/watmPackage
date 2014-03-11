@@ -42,8 +42,11 @@ appData.routers.AppRouter = Backbone.Router.extend({
     },
 
     loading: function () {
-        appData.slider.slidePage(new appData.views.LoadingView({model: appData.models.userModel}).render().$el);
-        
+        if(!appData.settings.dataLoaded){
+            appData.slider.slidePage(new appData.views.LoadingView({model: appData.models.userModel}).render().$el);
+        }else{
+            window.location.hash = "dashboard";
+        }
     },
     
     dashboard: function () {

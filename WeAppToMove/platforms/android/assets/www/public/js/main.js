@@ -751,6 +751,12 @@ appData.views.ActivityMediaView = Backbone.View.extend({
     render: function() { 
       this.$el.html(this.template(this.model.attributes));
       appData.settings.currentModuleHTML = this.$el;
+
+      // Hide the upload button if we're not on a native device
+      if(appData.settings.native){
+        $('#addMediaButton',appData.settings.currentModuleHTML).removeClass('hide');
+      }
+
         return this; 
     },
 
@@ -1680,7 +1686,9 @@ appData.views.HomeView = Backbone.View.extend({
 				appData.models.userModel.set('password', password);
 
                 appData.services.phpService.userLogin();
-		  	}
+		  	},invalidHandler: function(form, validator) {
+            // not sure if this is the correct selector but I found it here: http://docs.jquery.com/Plugins/Validation/validate#toptions
+        }
     	});
     },
 

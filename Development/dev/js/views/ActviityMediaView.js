@@ -40,6 +40,12 @@ appData.views.ActivityMediaView = Backbone.View.extend({
     render: function() { 
       this.$el.html(this.template(this.model.attributes));
       appData.settings.currentModuleHTML = this.$el;
+
+      // Hide the upload button if we're not on a native device
+      if(appData.settings.native){
+        $('#addMediaButton',appData.settings.currentModuleHTML).removeClass('hide');
+      }
+
         return this; 
     },
 

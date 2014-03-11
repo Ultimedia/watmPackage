@@ -6,6 +6,10 @@
     background: none;
   }
 
+.cl-bar-footer .cl-btn{
+  background: red;
+}
+
 .cl-btn {
   @include button-skin($accent-color);
   @include button-skin-hover($accent-color);

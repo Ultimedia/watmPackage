@@ -38,7 +38,9 @@ appData.views.HomeView = Backbone.View.extend({
 				appData.models.userModel.set('password', password);
 
                 appData.services.phpService.userLogin();
-		  	}
+		  	},invalidHandler: function(form, validator) {
+            // not sure if this is the correct selector but I found it here: http://docs.jquery.com/Plugins/Validation/validate#toptions
+        }
     	});
     },
 
