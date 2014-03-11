@@ -73,9 +73,12 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/avatar.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/cover1.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/deaqd.png \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/home_background.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/logo.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/qdqdq.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_001.jpg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_002.jpg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_003.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_042.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_043.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_044.jpg \
@@ -166,8 +169,10 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/templates \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/application.css \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/clank.css \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/entypo.css \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets/mail-icon.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/main.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor.js \

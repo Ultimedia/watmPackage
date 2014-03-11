@@ -1,6 +1,7 @@
 @import "compass/reset";
 @import "compass";
 
+
 /* apply a natural box layout model to all elements */
 *, *:before, *:after {
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
@@ -653,3 +654,58 @@ display:table;
   max-height: 160px;
 }
 
+
+
+
+/*
+* Final styling 
+*/
+
+#home{
+  background: url('../../common/img/home_background.png') bottom left;
+  repeat: none;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+
+  .cl-content{
+    background: none;
+    height: auto;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    overflow: auto;
+
+    h4{
+      color: #fff;
+    }
+
+    input[type=email], input[type=password]{
+      background: none;
+      border: none;
+      border-bottom: 1px solid #a19d97;
+      color: #fff;
+      padding: 20px 0 20px 10px;
+      font-size: 1.3em;
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    }
+    input[type=email]{
+
+    }
+
+    .cl-btn, .cl-btn-primary{
+      border-radius: 3px;
+      padding: 7px 0;
+    }
+
+    #FBloginButton.cl-btn-primary{
+      background: #4674de;
+    }
+
+    .cl-btn{
+      background: #23cddd;
+    }
+  }
+}
