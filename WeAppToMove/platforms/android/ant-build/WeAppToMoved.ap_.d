@@ -74,7 +74,6 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.geolocation \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.network-information \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.battery-status/www \
@@ -124,14 +123,6 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media/www \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media/www/Media.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media/www/MediaError.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/capture.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureAudioOptions.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureError.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureImageOptions.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/CaptureVideoOptions.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/MediaFile.js \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.media-capture/www/MediaFileData.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/Connection.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/network.js \

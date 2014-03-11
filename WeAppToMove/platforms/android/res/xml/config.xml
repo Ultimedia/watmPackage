@@ -22,14 +22,8 @@
     <feature name="Compass">
         <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
     </feature>
-    <feature name="Geolocation">
-        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
-    </feature>
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
-    </feature>
-    <feature name="Capture">
-        <param name="android-package" value="org.apache.cordova.mediacapture.Capture" />
     </feature>
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
@@ -39,6 +33,9 @@
     </feature>
     <feature name="Media">
         <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
     </feature>
     <name>WeAppToMoved</name>
     <description>
