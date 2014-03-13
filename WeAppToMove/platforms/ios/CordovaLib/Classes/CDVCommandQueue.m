@@ -6,9 +6,9 @@
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -73,12 +73,12 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
             [commandBatchHolder addObject:[batchJSON JSONObject]];
         } else {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^() {
-                    NSMutableArray* result = [batchJSON JSONObject];
-                    @synchronized(commandBatchHolder) {
-                        [commandBatchHolder addObject:result];
-                    }
-                    [self performSelectorOnMainThread:@selector(executePending) withObject:nil waitUntilDone:NO];
-                });
+                NSMutableArray* result = [batchJSON JSONObject];
+                @synchronized(commandBatchHolder) {
+                    [commandBatchHolder addObject:result];
+                }
+                [self performSelectorOnMainThread:@selector(executePending) withObject:nil waitUntilDone:NO];
+            });
         }
     }
 }
@@ -86,7 +86,7 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
 - (void)processXhrExecBridgePoke:(NSNumber*)requestId
 {
     NSInteger rid = [requestId integerValue];
-
+    
     // An ID of 1 is a special case because that signifies the first request of
     // the page. Since resetRequestId is called from webViewDidStartLoad, and the
     // JS context at the time of webViewDidStartLoad is still that of the previous
@@ -96,7 +96,7 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
         CDV_EXEC_LOG(@"Exec: Ignoring exec request from previous page.");
         return;
     }
-
+    
     // Use the request ID to determine if we've already flushed for this request.
     // This is required only because the NSURLProtocol enqueues the same request
     // multiple times.
@@ -111,8 +111,8 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
 {
     // Grab all the queued commands from the JS side.
     NSString* queuedCommandsJSON = [_viewController.webView stringByEvaluatingJavaScriptFromString:
-        @"cordova.require('cordova/exec').nativeFetchMessages()"];
-
+                                    @"cordova.require('cordova/exec').nativeFetchMessages()"];
+    
     CDV_EXEC_LOG(@"Exec: Flushed JS->native queue (hadCommands=%d).", [queuedCommandsJSON length] > 0);
     [self enqueueCommandBatch:queuedCommandsJSON];
 }
@@ -125,7 +125,7 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
     }
     @try {
         _startExecutionTime = [NSDate timeIntervalSinceReferenceDate];
-
+        
         while ([_queue count] > 0) {
             NSMutableArray* commandBatchHolder = _queue[0];
             NSMutableArray* commandBatch = nil;
@@ -136,7 +136,7 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
                 }
                 commandBatch = commandBatchHolder[0];
             }
-
+            
             while ([commandBatch count] > 0) {
                 @autoreleasepool {
                     // Execute the commands one-at-a-time.
@@ -146,20 +146,20 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
                     }
                     CDVInvokedUrlCommand* command = [CDVInvokedUrlCommand commandFromJson:jsonEntry];
                     CDV_EXEC_LOG(@"Exec(%@): Calling %@.%@", command.callbackId, command.className, command.methodName);
-
+                    
                     if (![self execute:command]) {
 #ifdef DEBUG
-                            NSString* commandJson = [jsonEntry JSONString];
-                            static NSUInteger maxLogLength = 1024;
-                            NSString* commandString = ([commandJson length] > maxLogLength) ?
-                                [NSString stringWithFormat:@"%@[...]", [commandJson substringToIndex:maxLogLength]] :
-                                commandJson;
-
-                            DLog(@"FAILED pluginJSON = %@", commandString);
+                        NSString* commandJson = [jsonEntry JSONString];
+                        static NSUInteger maxLogLength = 1024;
+                        NSString* commandString = ([commandJson length] > maxLogLength) ?
+                        [NSString stringWithFormat:@"%@[...]", [commandJson substringToIndex:maxLogLength]] :
+                        commandJson;
+                        
+                        DLog(@"FAILED pluginJSON = %@", commandString);
 #endif
                     }
                 }
-
+                
                 // Yield if we're taking too long.
                 if (([_queue count] > 0) && ([NSDate timeIntervalSinceReferenceDate] - _startExecutionTime > MAX_EXECUTION_TIME)) {
                     [self performSelector:@selector(executePending) withObject:nil afterDelay:0];
@@ -179,10 +179,10 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
         NSLog(@"ERROR: Classname and/or methodName not found for command.");
         return NO;
     }
-
+    
     // Fetch an instance of this class
     CDVPlugin* obj = [_viewController.commandDelegate getCommandInstance:command.className];
-
+    
     if (!([obj isKindOfClass:[CDVPlugin class]])) {
         NSLog(@"ERROR: Plugin '%@' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.", command.className);
         return NO;
@@ -194,7 +194,7 @@ static const double MAX_EXECUTION_TIME = .008; // Half of a 60fps frame.
     SEL normalSelector = NSSelectorFromString(methodName);
     if ([obj respondsToSelector:normalSelector]) {
         // [obj performSelector:normalSelector withObject:command];
-        objc_msgSend(obj, normalSelector, command);
+        ((void (*)(id, SEL, id))objc_msgSend)(obj, normalSelector, command);
     } else {
         // There's no method to call, so throw an error.
         NSLog(@"ERROR: Method '%@' not defined in Plugin '%@'", methodName, command.className);
