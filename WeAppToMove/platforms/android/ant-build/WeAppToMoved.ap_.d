@@ -34,6 +34,15 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/app-icons.svg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/app-icons.ttf \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/app-icons.woff \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-italic-webfont.eot \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-italic-webfont.svg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-italic-webfont.ttf \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-italic-webfont.woff \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-regular-demo.html \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-regular-webfont.eot \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-regular-webfont.svg \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-regular-webfont.ttf \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/bitter-regular-webfont.woff \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/entypo-social.eot \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/entypo-social.svg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/fonts/entypo-social.ttf \
@@ -54,6 +63,7 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/loading_backgroudn.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/loading_background.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/logo.png \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/Naamloos-1.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/img/qdqdq.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_001.jpg \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/common/uploads/cdv_photo_002.jpg \
@@ -135,7 +145,10 @@
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/clank.css \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/entypo.css \
-/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets/mail-icon.png \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets/lock-icon@x2.png \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets/mail-icon@x2.png \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets/name-icon@x2.png \
+/Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/css/assets/speech-icon@x2.png \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/main.js \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor \
 /Users/maartenbressinck/watmLaunch/WeAppToMove/platforms/android/assets/www/public/js/vendor.js \

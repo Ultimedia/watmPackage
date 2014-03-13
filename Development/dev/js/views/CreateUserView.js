@@ -16,9 +16,31 @@ appData.views.CreateUserView = Backbone.View.extend({
     		$('#passwordInput', appData.settings.currentPageHTML).val(this.model.attributes.password);
     		$('#emailInput', appData.settings.currentPageHTML).val(this.model.attributes.email);
     	}
+
+
+        $('.radio-list input[type="radio"]', appData.settings.currentPageHTML).change(function() {
+
+            // Remove all checked
+            $(this).parents('.radio-list').find('label').removeClass('checked');
+            $(this).parent().addClass('checked');
+
+            var selectedData = $(this).attr('id');
+                selectedData = selectedData.split('-');
+                selectedData = selectedData[1];
+
+                console.log(selectedData);
+        });
         
         return this; 
     }, 
+
+    events: {
+        "click #createUserButton": "createUserButtonHandler"
+    },
+
+    createUserButtonHandler: function(){
+        $("#createUserForm",appData.settings.currentPageHTML).submit();
+    },
 
     createUserHandler: function(){
         appData.router.navigate('dashboard', true);

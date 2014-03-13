@@ -3,7 +3,7 @@
     <a href="#dashboard" class="cl-btn cl-btn-header" data-transition="slide-out" id="searchButton">
       <i class="entypo-icon">&#59237;</i>
     </a>
-    <div class="cl-title">Nieuwe gebruiker</div>
+    <div class="cl-title">REGISTREER</div>
   </div>
   <div class="cl-content" >
 
@@ -14,15 +14,34 @@
 
 	<form class="cl-form padded" id="createUserForm" action="javascript:;">
 		<input type="email" name="email" placeholder="Email adres" id="emailInput" required/>
+
+    <hr/>
+
     <input type="text" name="name" placeholder="Naam" id="nameInput" required/>
 
-		<input type="password" name="password" placeholder="Paswoord" id="passwordInput" required/>
-		<input type="password" name="password_valid" placeholder="Bevestig paswoord" id="passwordValidateInput" equalto="#passwordInput" required/>
+    <hr/>
 
-		<input type="submit" id="createUserButton" class="cl-btn" value="Gebruiker aanmaken"/>
+		<input type="password" name="password" placeholder="Paswoord" id="passwordInput" required/>
+		
+    <hr/>
+
+    <input type="password" name="password_valid" placeholder="Bevestig paswoord" id="passwordValidateInput" equalto="#passwordInput" required/>
+
+    <hr/>
+
+    <div class="radio-list"> 
+     <label for="sex-1" class="checked">
+       <input type="radio" id="sex-1" name="demo-radios" checked=""> Man</label>
+       <label for="sex-0" class="">
+       <input type="radio" id="sex-0" name="demo-radios"> Vrouw</label>
+    </div>
 	</form>
 
+
   </div>
+   <div class="button-container">
+      <a  href="javascript:;" id="createUserButton" class="cl-btn">Gebruiker aanmaken</a>
+    </div>
 </div>
 
 

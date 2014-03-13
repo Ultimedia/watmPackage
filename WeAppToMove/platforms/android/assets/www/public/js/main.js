@@ -139,7 +139,7 @@ $(document).on("ready", function () {
       appData.helpers.phonegapHelper = new appData.views.HelperView();
 
       if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        appData.settings.rootPath = "http://172.30.39.160/";
+        appData.settings.rootPath = "http://192.168.0.205/";
         appData.settings.servicePath =  appData.settings.rootPath + "services/";
         appData.settings.imagePath = appData.settings.rootPath + "common/uploads/";
         appData.settings.badgesPath = appData.settings.rootPath + "common/badges/";
@@ -1219,9 +1219,31 @@ appData.views.CreateUserView = Backbone.View.extend({
     		$('#passwordInput', appData.settings.currentPageHTML).val(this.model.attributes.password);
     		$('#emailInput', appData.settings.currentPageHTML).val(this.model.attributes.email);
     	}
+
+
+        $('.radio-list input[type="radio"]', appData.settings.currentPageHTML).change(function() {
+
+            // Remove all checked
+            $(this).parents('.radio-list').find('label').removeClass('checked');
+            $(this).parent().addClass('checked');
+
+            var selectedData = $(this).attr('id');
+                selectedData = selectedData.split('-');
+                selectedData = selectedData[1];
+
+                console.log(selectedData);
+        });
         
         return this; 
     }, 
+
+    events: {
+        "click #createUserButton": "createUserButtonHandler"
+    },
+
+    createUserButtonHandler: function(){
+        $("#createUserForm",appData.settings.currentPageHTML).submit();
+    },
 
     createUserHandler: function(){
         appData.router.navigate('dashboard', true);
@@ -1878,6 +1900,7 @@ appData.views.LoadingView = Backbone.View.extend({
         }
 
        appData.views.LoadingView.destroy_view();
+
     },
 
     destroy_view: function() {

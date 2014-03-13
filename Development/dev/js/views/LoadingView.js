@@ -94,6 +94,7 @@ appData.views.LoadingView = Backbone.View.extend({
         }
 
        appData.views.LoadingView.destroy_view();
+
     },
 
     destroy_view: function() {
